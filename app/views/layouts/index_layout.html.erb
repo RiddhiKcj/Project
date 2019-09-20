@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>BlogApp Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'rails.validations' %>
+    <%= stylesheet_link_tag    'util', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'main', media: 'all', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <div class="limiter">
+      <div class="container-login" style="background-image: none">
+        <div class="row wrap-login p-l-55 p-r-55 p-t-20 p-b-20">
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, class: "alert alert-info alert-dismissible" do %>
+            <%= msg %>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <% end %>
+        <% end %>
+        <%= yield %>
+          
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>
+  
