@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :myapis , dependent: :destroy
+  geocoded_by :current_sign_in_ip
+  after_validation :geocode, if: :current_sign_in_ip_changed?
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -40,8 +42,6 @@ class User < ApplicationRecord
   def password_required?
     super && provider.blank?
   end
-
-
 end
 
 

@@ -1,6 +1,5 @@
-img {
-  width: 50px;
-  height: 50px;
+img.card-img-top {
+  height: 72px;
 }
 
 .d-block {
@@ -317,22 +316,19 @@ h3 {
 }
 .outer-grid-container {
   font-family: Poppins;
-  display: grid;
-  grid-template-rows: auto auto auto auto auto;
+
   /* grid-template-rows: 20% 6% 5% 64% 5%; */
   padding: 10px;
   margin: 0;
 }
-footer {
-  display: block;
-  text-align: center;
-  position: fixed;
+.footer {
+  position: relative;
+  left: 0;
   bottom: 0;
-  right: 7px;
-  left: 10px;
-  height: 20px;
+  width: 100%;
   background-color: #222;
   color: #fff;
+  text-align: center;
 }
 .box {
   padding: 0;
@@ -348,10 +344,7 @@ footer {
   width: 100%;
   background: #0056b3;
 }
-button {
-  width: 100%;
-  padding: 0px 0px 10px 10px;
-}
+
 html {
   overflow-y: scroll;
   overflow-x: hidden;
@@ -374,4 +367,64 @@ textarea {
 
 .form-control:focus {
   box-shadow: none !important;
+}
+
+.content-table{
+  display: flex;
+  justify-content: center;
+}
+.jumbotron{
+  margin: 10px 90px 0px 90px;
+  padding: 30px;
+  background-color: whitesmoke;
+  color: #212121;
+}
+.carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
+.carousel-indicators li{
+  background-color: black;
+}
+.list-group{
+  width: 200px;
+  max-width: 300px;
+}
+.jumbotron ul{
+  display: inline;
+}
+.card-img-top{
+  padding-top: 8px;
+  padding-bottom: 5px;
+}
+.jumbotron div{
+  display: inline-block ;
+}
+div.card-body{
+  display: block !important;
+  margin: auto;
+  padding: 1rem !important;
+}
+.cards-container{
+  justify-content: center;
+}
+.card{
+  background-color: inherit;
+  margin-left: 30px;
+}
+.jumbotron h6,h5,h4{
+  margin-left: 30px;
+}
+.weather-img{
+  height: 120px;
+  margin-left: 30px;
+  padding-bottom: 5px;
+}
+.row-img{
+  height: 72px;
+  padding-top: 8px;
+  padding-bottom: 5px;
 }

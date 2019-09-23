@@ -15,6 +15,4 @@
 //= require turbolinks
 //= require_tree .
 //= require rails.validations
-$(function() {
-  $('[data-toggle="tooltip"]').tooltip();
-});
+

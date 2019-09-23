@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'weather/glocation'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, :controllers => { omniauth_callbacks: "omniauth_callbacks", registrations: "registrations", confirmations: "users/confirmations" }
   get 'welcome/index'

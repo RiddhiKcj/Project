@@ -1,2 +1,4 @@
 class Globalapi < ApplicationRecord
+
+      
 end
