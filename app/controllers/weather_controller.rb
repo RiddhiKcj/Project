@@ -1,7 +1,7 @@
 class WeatherController < ApplicationController
   require 'rest-client'
   require 'date'
-  def glocation
+  def index
     @user = current_user
     ip = @user.last_sign_in_ip || @user.current_sign_in_ip
     location = Geocoder.search(ip)

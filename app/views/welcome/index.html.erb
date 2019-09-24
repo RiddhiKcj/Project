@@ -1,18 +1,22 @@
-<div class="container content-page">
-      <h3><strong><u>Articles</u></strong></h3>
-      <div class="p-b-40">
-	      <table class="table table-striped table-hover">
-              <% @users.each do |user| %>
-                <% if user.myapis.any? %>
-                    <% user.myapis.each do |article| %>
-                        <tr>
-                        <td><strong><%= article.title %></strong></td>
-                        <td><%= article.body %></td>
-                        <td>  ~ by  <%= user.username.humanize %></td>   
-                        </tr>
-                    <% end %>
-                <% end %>
-            <% end %>   
-            </table>
-        </div>
+
+<div class="btn-group" role="group">
+    <% @globalApi.each do |gApi| %>
+        <% if gApi.active %>
+            <button id="<%=gApi.name%>" type="button" class="btn btn-secondary"><%= gApi.name.humanize %></button>
+        <% end %>
+    <% end %>
 </div>
+<h3><strong>My APIs</strong></h3><hr/>
+<div id="api"></div>
+<div class="p-b-40">
+    <table class="table table-striped table-hover">
+        <% @users.each do |user| %>
+        <% if user.myapis.any? %>
+            <% user.myapis.each do |api| %>
+                <%= render api.name+'/index' %>
+            <% end %>
+        <% end %>
+    <% end %>   
+    </table>
+</div>
+<script>

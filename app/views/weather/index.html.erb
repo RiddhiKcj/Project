@@ -14,11 +14,12 @@
             <h3 style="color:#212121;"><%= @address %></h3>
                 <% @response.each do |key,val| %>
                     <% if key == "currently" %>
-                        <h6 style="color:#424242;"><center><%= Time.at(val["time"]).to_datetime.strftime("%A, %d %b  %T %p") %></center></h6><br />
+                        <span style="float:right; margin-right:40px;"><h4 style="color:#212121;"><%= val["temperature"] %> &#730;F</h4>
+                        <h6 style="color:#424242;">Feels like &nbsp;<%= val["apparentTemperature"] %> &#730;F</h6></span>
+                        <h6 style="color:#424242;"><%= Time.at(val["time"]).to_datetime.strftime("%A, %d %b  %T %p") %></h6><br />
                         <span><%= image_tag((val["icon"]+".svg"), :alt => "...", :class => "weather-img") %></span>
                         <h5 style="color:#424242;"><b><%= val["summary"] %></b></h5>
-                        <h4 style="color:#212121;"><%= val["temperature"] %> &#730;F</h4>
-                        <h6 style="color:#424242;">Feels like &nbsp;<%= val["apparentTemperature"] %> &#730;F</h6><br />                        
+                        <br />                        
                         <div class="card" style="width: 18rem;">
                             <%= image_tag("drop.svg", :alt => "...", :class => "card-img-top") %>
                             <div class="card-body">

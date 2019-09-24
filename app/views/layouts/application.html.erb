@@ -18,37 +18,38 @@
     <%= stylesheet_link_tag    'util', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
- <div class="container-fluid box">
- 	  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-brand">
-        <strong>Welcome </strong>
-        <% if current_user.username.blank? %>
-          <strong><%= current_user.email %></strong>
-        <% else %>
-          <strong><%= current_user.username.humanize %></strong>
-        <% end %></strong>
-      </div>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 
-        <ul class="navbar-nav navbar-right mr-auto mt-2 mt-lg-0">
-          <li class="nav-item active"><%= link_to welcome_index_path, class:"nav-link" do %>
-            <i class="fa fa-home nav-item" aria-hidden="true"></i> Home
-            <% end %>
-          </li>
-          <li class="nav-item"><%= link_to edit_user_registration_path, class:"nav-link" do %>
-            <i class="fa fa-user nav-item" aria-hidden="true"></i> Edit Profile
-            <% end %>
-          </li>
-          <li class="nav-item nav-item"><%= link_to destroy_user_session_path , class:"nav-link", method: :delete do %>
-            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
-            <% end %>
-          </li>
-        </ul>
-      </div>
- 	  </nav> 
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-brand">
+      <strong>Welcome </strong>
+      <% if current_user.username.blank? %>
+        <strong><%= current_user.email %></strong>
+      <% else %>
+        <strong><%= current_user.username.humanize %></strong>
+      <% end %></strong>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+      <ul class="navbar-nav navbar-right mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active"><%= link_to welcome_index_path, class:"nav-link" do %>
+          <i class="fa fa-home nav-item" aria-hidden="true"></i> Home
+          <% end %>
+        </li>
+        <li class="nav-item"><%= link_to edit_user_registration_path, class:"nav-link" do %>
+          <i class="fa fa-user nav-item" aria-hidden="true"></i> Edit Profile
+          <% end %>
+        </li>
+        <li class="nav-item nav-item"><%= link_to destroy_user_session_path , class:"nav-link", method: :delete do %>
+          <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+          <% end %>
+        </li>
+      </ul>
+    </div>
+</nav> 
+<div class="container box">  
     <div class="header">  
       <% flash.each do |name, msg| %>
         <%= content_tag :div, class: "alert alert-info alert-dismissible" do %>
@@ -57,12 +58,9 @@
         <% end %>
       <% end %>
     </div>
-     <div class="container-fluid content-table"> 
-      <%= yield %>
-     </div>
-     
- </div>
-  <div class="footer">&copy; BlogApp-rk.com
+      <%= yield %> 
   </div>
+ <div class="footer">&copy; BlogApp-rk.com
+ </div>
 </body>
 </html>

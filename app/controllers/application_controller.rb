@@ -3,6 +3,13 @@ class ApplicationController < ActionController::Base
 	before_action :authenticate_user!
 	layout :layout_by_resource
 
+	def extract_ip_from(request)
+		if request.remote_ip == '::1' || request.remote_ip == '127.0.0.1'
+			"111.93.220.154"
+		else
+			request.remote_ip
+		end
+	end
 
 	protected
 	def layout_by_resource
