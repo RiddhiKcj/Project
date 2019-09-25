@@ -15,6 +15,7 @@ gem 'jquery-rails'
 gem 'client_side_validations'
 gem 'rest-client'
 gem 'geocoder'
+gem 'webpacker', '~> 3.5'
 group :development, :test do
   gem 'sqlite3'
 end
