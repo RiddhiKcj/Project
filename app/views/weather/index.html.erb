@@ -1,18 +1,17 @@
 <div class="container-fluid">
-    <h3class="display-4"><center>Weather</center></h3>
-
+    <h3 class="display-4"><center>Weather</center></h3>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
-        # <!-- carousel-1 -->
+        <!-- carousel-1 -->
         <div class="carousel-inner">
             <div class="carousel-item active">
             <div class="jumbotron">
             <h3 style="color:#212121;"><%= @address %></h3>
-                <% @response.each do |key,val| %>
+                <% @weatherData.each do |key,val| %>
                     <% if key == "currently" %>
                         <span style="float:right; margin-right:40px;"><h4 style="color:#212121;"><%= val["temperature"] %> &#730;F</h4>
                         <h6 style="color:#424242;">Feels like &nbsp;<%= val["apparentTemperature"] %> &#730;F</h6></span>
@@ -73,12 +72,12 @@
                 </div>
             </div>
             
-            # <!-- carousel-2 -->
+            <!-- carousel-2 -->
             <div class="carousel-item">
             <div class="jumbotron">
             <h3 style="color:#212121;"><center>Hourly Report</center></h3>
                 <ul>
-                <% @response.each do |key,val| %>
+                <% @weatherData.each do |key,val| %>
                     <% if key == "hourly" %>
                         <span><%= image_tag((val["icon"]+".svg"), :alt => "...", :class => "weather-img") %></span>
                         <h5 style="color:#212121;"><strong><%= val["summary"] %></strong></h5>
@@ -114,11 +113,11 @@
             </div>
 
 
-            # <!-- carousel-3 -->
+            <!-- carousel-3 -->
             <div class="carousel-item">
             <div class="jumbotron">
             <h3 style="color:#212121;"><center>Daily Report</center></h3>
-                <% @response.each do |key,val| %>
+                <% @weatherData.each do |key,val| %>
                     <% if key == "daily" %>
                         <span><%= image_tag((val["icon"]+".svg"), :alt => "...", :class => "weather-img") %></span>
                         <h5 style="color:#212121;"><strong><%= val["summary"] %></strong></h5>
