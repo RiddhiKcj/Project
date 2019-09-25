@@ -6,13 +6,19 @@
 // All it does is render <div>Hello Vue</div> at the bottom of the page.
 
 import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import App from '../app.vue'
+
+Vue.use(Vuetify)
 
 document.addEventListener('DOMContentLoaded', () => {
   const el = document.body.appendChild(document.createElement('hello'))
   const app = new Vue({
     el,
-    render: h => h(App)
+    render: h => h(App),
+    vuetify: new Vuetify({})
   })
 
   console.log(app)
