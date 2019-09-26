@@ -1,11 +1,12 @@
 <template>
   <div>
-  <h1>Hello world</h1>
-  <v-app id="app" dark>
-    <h1>Hello Vuetify</h1>
-    <v-btn color="success">Vuetify Button</v-btn>
-  </v-app>
-    <p>{{ message }}</p>
+    <v-app id="app" dark>
+      <v-content>
+        <div>
+          <router-view></router-view>
+        </div>
+      </v-content>
+    </v-app>
   </div>
 </template>
 
@@ -13,15 +14,9 @@
 export default {
   data: function () {
     return {
-      message: "Hello Vue!"
     }
+  },
+  created() {
   }
 }
 </script>
-
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
-</style>

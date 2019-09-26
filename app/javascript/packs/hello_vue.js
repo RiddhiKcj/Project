@@ -10,7 +10,7 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import App from '../app.vue'
-
+import router from '../src/router.js'
 Vue.use(Vuetify)
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     el,
     render: h => h(App),
-    vuetify: new Vuetify({})
+    vuetify: new Vuetify({}),
+    router
   })
 
   console.log(app)
