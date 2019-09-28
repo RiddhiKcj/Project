@@ -11,6 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
   <script src="https://kit.fontawesome.com/f546f94cda.js" crossorigin="anonymous"></script>
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
   <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -19,8 +20,7 @@
     <%= stylesheet_link_tag    'util', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-<h1> Within Application.html.erb</h1>
-<%= stylesheet_pack_tag 'hello_vue' %> 
+ <%= stylesheet_pack_tag 'hello_vue' %> 
  <%= javascript_pack_tag 'application' %>
  <%= javascript_pack_tag 'hello_vue' %>
 </body>

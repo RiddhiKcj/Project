@@ -1,0 +1,97 @@
+<template>
+    <div>
+        <v-navigation-drawer
+        v-model="drawer"
+        app
+        clipped
+        >
+        <v-list dense>
+            <v-list-item @click="navigateHome">
+            <v-list-item-action>
+                <v-icon>mdi-home</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+                <v-list-item-title>Home</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="navigateDashboard">
+            <v-list-item-action>
+                <v-icon>mdi-view-dashboard</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+                <v-list-item-title>Dashboard</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="navigateWidgets">
+            <v-list-item-action>
+                <v-icon>mdi-apps</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+                <v-list-item-title>Widgets</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="navigateProfileEdit">
+            <v-list-item-action>
+                <v-icon>mdi-face</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+                <v-list-item-title>Edit Profile</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="LogoutSession">
+            <v-list-item-action>
+                <v-icon>mdi-logout</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+                <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+        </v-list>
+        </v-navigation-drawer>    
+        
+        <v-app-bar
+        app
+        clipped-left
+        >
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-toolbar-title>Application</v-toolbar-title>
+        </v-app-bar>
+        <v-content>
+            
+            <slot/>
+        </v-content> 
+        <v-footer app>
+                <span>&copy; 2019</span>
+        </v-footer>             
+    </div>     
+</template>
+<script>
+export default {
+    props: {
+    source: String,
+    },
+    data: () => ({
+    drawer: null,
+    }),
+    methods: {
+        navigateHome() {
+            this.$router.push({path: '/'});
+        },
+        navigateDashboard() {
+            this.$router.push({path: '/dashboard'});
+        },
+        navigateWidgets() {
+            this.$router.push({path: '/widgets'});
+        },
+        navigateProfileEdit() {
+            this.$router.push({path: '/users/:id/edit'});
+        },
+        LogoutSession() {
+            this.$router.push({path: '/logout'});
+        }
+    },
+    created () {
+    this.$vuetify.theme.dark = true
+    },
+}
+</script>

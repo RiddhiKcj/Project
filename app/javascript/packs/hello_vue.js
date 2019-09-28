@@ -9,10 +9,21 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import 'font-awesome/css/font-awesome.min.css'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import App from '../app.vue'
 import router from '../src/router.js'
-Vue.use(Vuetify)
+import Layout from '../src/shared/layout.vue'
+import { fas } from "@fortawesome/free-solid-svg-icons";
+library.add(fas);
+Vue.use(Vuetify, {
+  iconfont: "faSvg"
+});
+Vue.component("font-awesome-icon", FontAwesomeIcon); // Register component globally
 
+Vue.use(Vuetify)
+Vue.component('layout',Layout)
 document.addEventListener('DOMContentLoaded', () => {
   const el = document.body.appendChild(document.createElement('hello'))
   const app = new Vue({
@@ -21,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
     vuetify: new Vuetify({}),
     router
   })
-
   console.log(app)
 })
 

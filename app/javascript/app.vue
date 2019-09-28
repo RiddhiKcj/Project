@@ -1,22 +1,24 @@
 <template>
-  <div>
-    <v-app id="app" dark>
-      <v-content>
-        <div>
-          <router-view></router-view>
-        </div>
-      </v-content>
-    </v-app>
-  </div>
+  <v-app id="inspire">
+    <router-view></router-view>
+  </v-app>
 </template>
 
 <script>
-export default {
-  data: function () {
-    return {
-    }
-  },
-  created() {
+  export default {
+    props: {
+      source: String,
+    },
+    data: () => ({
+      drawer: null,
+    }),
+    methods: {
+      navigateDashboard() {
+        this.$router.push({path: '/dashboard'});
+      }
+    },
+    created () {
+      this.$vuetify.theme.dark = true
+    },
   }
-}
 </script>
