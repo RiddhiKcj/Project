@@ -1,50 +1,33 @@
 <template>
   <layout>
-    <div>
-      <v-card>
-        <v-card-title>Weather</v-card-title>
-        <v-card-text>
-        </v-card-text>
-        <v-card-actions>
-            <v-checkbox
-              v-model="ex4"
-              label="indigo darken-3"
-              color="indigo darken-3"
-              value="weather"
-              hide-details
-            ></v-checkbox>
-        </v-card-actions>
-      </v-card>
-      <v-card>
-        <v-card-title>News</v-card-title>
-        <v-card-text>
-        </v-card-text>
-        <v-card-actions>
-            <v-checkbox
-              v-model="ex4"
-              label="secondary darken-3"
-              color="secondary darken-3"
-              value="news"
-              hide-details
-            ></v-checkbox>
-        </v-card-actions>
-      </v-card>
-    </div>
+    <div class="container"> 
+      <v-row justify="center">
+        <div v-for="api in selectedWidgets" class="col-sm-3">
+          <v-btn icon @click="$router.push('/api/' + api )">
+            {{ api }}
+            <v-img :src="require('src/components/images/' + api + '.svg')"
+              max-width="100"
+              max-height="100">
+              </v-img>
+          </v-btn>    
+        </div>
+      </v-row>
+  </div>
   </layout>
 </template>
 <script>
-import Layout from '../shared/layout.vue'
+
   export default {
-    components: {
-    Layout
-    },
     data () {
       return {
         ex4: ['indigo', 'primary', 'secondary', 'success', 'info', 'warning', 'error', 'red darken-3', 'indigo darken-3', 'orange darken-3'],
       }
     },
+    computed: {
+      selectedWidgets(){
+        this.selected = this.$store.state.selectedWidgets
+        return this.selected
+      }
+    }
   }
 </script>
-<style scoped>
-
-</style>

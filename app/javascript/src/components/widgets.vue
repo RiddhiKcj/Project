@@ -1,51 +1,59 @@
 <template>
 <layout>
 <div class="container">
-        <p>{{ selected }}</p>
     <div class="row">
-        <div class="col-sm-3">
-                <v-img :src="require('src/components/images/weather.svg')"
-                max-width="200"
-                max-height="200">
+        <div v-for="api in widgets" class="col-sm-3">
+                <v-img :src="require('src/components/images/' + api.name + '.svg')"
+                max-width="100"
+                max-height="100">
                 </v-img>
-                <v-checkbox v-model="selected" label="Weather" value="weather"></v-checkbox>
+                <v-checkbox v-model="selected" :label="api.name" :value="api.name"></v-checkbox>
         </div>
-        <div class="col-sm-3">
-                <v-img :src="require('src/components/images/news.svg')"
-                max-width="200"
-                max-height="200">
-                </v-img>
-                <v-checkbox v-model="selected" label="News" value="news"></v-checkbox>
-        </div>
-        <div class="col-sm-3">
-                <v-img :src="require('src/components/images/map.svg')"
-                max-width="200"
-                max-height="200">
-                </v-img>
-                <v-checkbox v-model="selected" label="Map" value="map"></v-checkbox>
-        </div>
-        <div class="col-sm-3">
-                <v-img :src="require('src/components/images/currencyexc.svg')"
-                max-width="200"
-                max-height="200">
-                </v-img>
-                <v-checkbox v-model="selected" label="Currency Exchange" value="currencyexc"></v-checkbox>
-        </div>
+    </div>
+    <div class="row">
+        <v-btn outlined color="pink" @click="addWidgets">Add to dashboard</v-btn>
     </div>
 </div>
 </layout>
   </template>
   <script>
-    import Layout from '../shared/layout.vue'
     export default {
-    components: {
-        Layout
+    data () {
+      return {
+        selected: [],
+      }
     },
-      data () {
-        return {
-          selected: [],
+    computed: {
+        widgets(){
+            return this.$store.state.widgets
+        },
+        userId(){
+          return this.$store.state.user.id
         }
+    },
+    created () {
+      this.selected = this.$store.state.selectedWidgets
+    },
+    methods: {
+      addWidgets(){
+        var self = this
+        $.ajax({
+          url: '/users/' + self.userId + '/myapis',
+          dataType: "json", 
+          type: "POST",
+          data: JSON.stringify(self.selected),
+          contentType: "application/json",
+          success: function (data) {
+            alert("Wizards Added Successfully")
+            console.log(data);
+            self.$store.dispatch('index');
+          },
+          error: function(data){
+            console.log(data);
+          }
+        });
       },
+    }
     }
   </script>
   <style scoped>
@@ -53,7 +61,7 @@
           font-size: 30px !important;
       }
       .container{
-          padding: 40px;
+          padding: 50px;
       }
       .col-sm-3{
           padding: 5px !important;

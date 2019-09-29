@@ -54,7 +54,7 @@
         clipped-left
         >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-toolbar-title>Application</v-toolbar-title>
+        <v-toolbar-title>Welcome {{currentUser}}</v-toolbar-title>
         </v-app-bar>
         <v-content>
             
@@ -67,12 +67,14 @@
 </template>
 <script>
 export default {
-    props: {
-    source: String,
-    },
     data: () => ({
     drawer: null,
     }),
+    computed: {
+        currentUser(){
+            return this.$store.state.user.username
+        }
+    },
     methods: {
         navigateHome() {
             this.$router.push({path: '/'});
@@ -84,7 +86,7 @@ export default {
             this.$router.push({path: '/widgets'});
         },
         navigateProfileEdit() {
-            this.$router.push({path: '/users/:id/edit'});
+            this.$router.push({path: '/users/edit'});
         },
         LogoutSession() {
             this.$router.push({path: '/logout'});
@@ -95,3 +97,8 @@ export default {
     },
 }
 </script>
+<style>
+    .v-toolbar__title{
+        text-transform: capitalize;
+    }
+</style>

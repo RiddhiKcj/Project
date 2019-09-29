@@ -368,10 +368,10 @@ textarea {
 }
 .jumbotron{
   margin: 10px 90px 0px 90px;
-  padding: 30px;
-  background-color: #f5f5f5;
-  color: #212121;
+  padding: 25px;
+  background: inherit;
 }
+
 .carousel-control-prev-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
 }
@@ -389,35 +389,28 @@ textarea {
 .jumbotron ul{
   display: inline;
 }
-.card-img-top{
-  padding-top: 8px;
-  padding-bottom: 5px;
-}
+
 .jumbotron div{
   display: inline-block ;
 }
 div.card-body{
   display: block !important;
   margin: auto;
-  padding: 1rem !important;
 }
 .cards-container{
   justify-content: center;
 }
 .card{
   background-color: inherit;
-  margin-left: 30px;
 }
 .jumbotron h6,h5,h4{
   margin-left: 30px;
 }
 .weather-img{
-  height: 120px;
   margin-left: 30px;
   padding-bottom: 5px;
 }
 .row-img{
-  height: 72px;
   padding-top: 8px;
   padding-bottom: 5px;
 }
@@ -457,7 +450,7 @@ div.card-body{
   height: 100px;
 }
 .news-blogs{
-  color: #545454;
+  color: whitesmoke;
   font-size: 13px;
   padding-bottom: 4px;
   padding-top: 0px;
@@ -476,19 +469,20 @@ h3.news-heading{
 }
 a.news-heading{
   text-decoration: none;
+  font-weight: bold;
 }
 a:link.news-heading {
   cursor: pointer;
-  color: #1a0dab;
+  color: #5facff;
 }
 a:visited.news-heading {
-  color: #609;
+  color: #9f3ef5;
 }
 .news-lines{
   line-height: 1.4;
   word-wrap: break-word;
 }
 .news-inner-box > div {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #545454; 
   text-align: left;
 }

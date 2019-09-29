@@ -7,9 +7,10 @@ Rails.application.routes.draw do
     resources :news, only: :index
   end
   resources :users,  only: :index do
-  	resources :myapis, only: [:new, :create, :destroy]
+    resources :myapis, only: [:index, :new, :create, :destroy]
   end
-
+  get '/logout', to: 'devise/sessions#destroy'  , method: :delete
+  get '/api/welcome', to: "welcome#index", defaults: { format: 'json' }
   root :to => "application#index"
   match "*path", to: "application#index", format: false, via: :get
   get '/admin', to: 'admin#index'

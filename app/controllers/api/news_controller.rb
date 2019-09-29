@@ -6,9 +6,12 @@ class Api::NewsController < ApplicationController
     url = newsApi.url + key
     responseData = (RestClient.get(url))
     @newsData = JSON.parse(responseData)
+    data = {
+      :newsData => @newsData,
+    }
     respond_to do |format|
       format.html  # index.html.erb
-      format.json  { render :json => responseData }
+      format.json  { render :json => data }
     end
   end
 end

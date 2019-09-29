@@ -1,13 +1,14 @@
 class MyapisController < ApplicationController
+
     def create
+        puts params
         @user = User.find(params[:user_id])
-        @myapi = @user.myapis.create(params_check)
-        @weatherData =
-        apiUrl = '/'+@myapi.name+'/index'
-        redirect_to apiUrl
-    end
-    private
-    def params_check
-        params.require(:myapi).permit(:name, :url, :api)
+        if params["_json"].present?
+            @user.myapis.destroy_all
+        end
+        params["_json"].each do |api|
+            @user.myapis.create(name: api)
+        end
+        puts @user.myapis.all
     end
 end

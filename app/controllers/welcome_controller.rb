@@ -1,13 +1,16 @@
 class WelcomeController < ApplicationController
   before_action :authenticate_user!
   def index
-    @users = User.all
     @user = current_user
-    @globalApi = Globalapi.all
+    @widgets = Globalapi.all
+    @selectedWidgets = []
+    @user.myapis.each do |api|
+      @selectedWidgets.push(api.name)
+    end
     data = {
       :user => @user,
-      :users => @users,
-      :globalApi => @globalApi
+      :widgets => @widgets,
+      :selectedWidgets => @selectedWidgets
     }
     respond_to do |format|
       format.json  { render :json => data }

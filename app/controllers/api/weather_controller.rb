@@ -1,8 +1,8 @@
 class Api::WeatherController < ApplicationController
   def index
     user = current_user
-    ip = user.last_sign_in_ip || user.current_sign_in_ip
-    @location = Geocoder.search(ip)
+    #ip = user.last_sign_in_ip || user.current_sign_in_ip
+    @location = Geocoder.search("157.41.50.224")
     @address =  @location.first.address
     latitude = @location.first.coordinates[0]
     longitude = @location.first.coordinates[1]
@@ -10,11 +10,15 @@ class Api::WeatherController < ApplicationController
     key = weatherApi.api  
     # url format = '..../'#{key}/#{latitude},#{longitude}
     url = weatherApi.url + key + '/' + latitude.to_s + ',' + longitude.to_s
-    responseData = RestClient.get(url)
-    @weatherData =  JSON.parse(responseData)
+    p url
+    @weatherData = JSON.parse(RestClient.get(url))
+    data = {
+      :weatherData => @weatherData,
+      :address => @address,
+    }
     respond_to do |format|
       format.html  # index.html.erb
-      format.json  { render :json => responseData }
+      format.json  { render :json => data }
     end
   end 
 
