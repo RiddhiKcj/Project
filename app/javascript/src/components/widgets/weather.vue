@@ -21,7 +21,7 @@
                       <span><v-img :src="require('../../../../assets/images/' + val.icon + '.svg')" class="weather-img"></v-img></span>
                       <h5 style="color:#f8f8f8;"><b>{{ val.summary }}</b></h5>
                       <br />                 
-                      <div class="card col-sm-4" style="width: 18rem;">
+                      <div class="card col-sm-4" style="width: 15rem;">
                           <div class="card-body">
                               <ul class="list-group"><h6 style="color:#e4e4e4">Precipitation</h6>
                                   <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -34,7 +34,7 @@
                           </div>
                       </div>
                       
-                      <div class="card col-sm-4" style="width: 18rem;">
+                      <div class="card col-sm-4" style="width: 15rem;">
                           <div class="card-body">
                               <ul class="list-group"><h6 style="color:#e4e4e4">Wind</h6>
                                   <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -219,5 +219,9 @@ export default{
   }
   hr{
     background: #e4e4e4;
+  }
+  .col-sm-4{
+    padding-left: 0px;
+    padding-right: 0px;
   }
 </style>

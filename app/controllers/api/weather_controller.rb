@@ -8,9 +8,8 @@ class Api::WeatherController < ApplicationController
     longitude = @location.first.coordinates[1]
     weatherApi = Globalapi.find_by name: 'weather'
     key = weatherApi.api  
-    # url format = '..../'#{key}/#{latitude},#{longitude}
+    #FORMAT-> url  = '..../'#{key}/#{latitude},#{longitude}
     url = weatherApi.url + key + '/' + latitude.to_s + ',' + longitude.to_s
-    p url
     @weatherData = JSON.parse(RestClient.get(url))
     data = {
       :weatherData => @weatherData,

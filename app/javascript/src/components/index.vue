@@ -1,7 +1,6 @@
 <template>
   <layout>
       <div class="container">
-        <div>{{userData}}</div>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus cursus lobortis justo, vitae congue leo maximus nec. Duis vitae ornare dolor. Integer ut magna diam. Vestibulum mollis massa eu ante fringilla vestibulum. Mauris id dui vestibulum, aliquam velit ac, congue mi. Suspendisse vulputate facilisis eros, id aliquet risus convallis id. Vivamus pretium leo erat, nec congue nisl tempor vitae. Vestibulum at sem et felis tincidunt congue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ut rhoncus dolor. Suspendisse potenti. Nam ut ligula tempor, hendrerit magna et, aliquet justo. Mauris lacus tortor, dapibus eu mollis at, pretium id erat.
         Ut id gravida nulla, et ullamcorper orci. Vestibulum eros erat, facilisis nec purus eu, malesuada pretium dolor. Vestibulum vestibulum eget arcu eget molestie. Nullam ullamcorper sed ipsum ut sodales. Fusce volutpat turpis eu luctus blandit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut pulvinar velit et risus porta laoreet. Phasellus a varius ex. Nulla sodales urna non nisi porttitor, scelerisque laoreet ex varius. Nulla sagittis felis quam, nec dignissim nibh pulvinar sed. Integer sed lobortis arcu, non vestibulum turpis.

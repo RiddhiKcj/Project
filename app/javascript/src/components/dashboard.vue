@@ -4,7 +4,6 @@
       <v-row justify="center">
         <div v-for="api in selectedWidgets" class="col-sm-3">
           <v-btn icon @click="$router.push('/api/' + api )">
-            {{ api }}
             <v-img :src="require('src/components/images/' + api + '.svg')"
               max-width="100"
               max-height="100">
@@ -31,3 +30,12 @@
     }
   }
 </script>
+<style scoped>
+  .v-btn__content{
+    background: brown !important;
+    padding: 5px;
+  }
+  .col-sm-3{
+    padding: none;
+  }
+</style>

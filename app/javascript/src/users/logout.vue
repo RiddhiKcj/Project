@@ -2,9 +2,9 @@
     <layout>
         <v-row>
             <p>
-                You have successfully logged out from your session. Click <router-link to="/users/sign_in">
+                You have successfully logged out from your session. Click <a href="/users/sign_in">
                     HERE
-                </router-link> to login again.
+                </a> to login again.
             </p>
         </v-row>
     </layout>
