@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import { store } from './store/store.js'
 Vue.use(VueRouter)
 
-import Index from '../src/components/index.vue'
+import Home from '../src/components/index.vue'
 import News from '../src/components/widgets/news.vue'
 import Weather from '../src/components/widgets/weather.vue'
 import Currencyexc from '../src/components/widgets/currencyexc.vue'
@@ -12,10 +12,12 @@ import Widgets from '../src/components/widgets.vue'
 import UserEdit from '../src/users/edit.vue';
 import UserNew from '../src/users/new.vue';
 import Logout from '../src/users/logout.vue';
+import Index from '../src/index.vue';
 
 const router = new VueRouter({
     mode: 'history',
     routes:[
+        { path: '/home', component: Home, name: 'home_path' },
         { path: '/', component: Index, name: 'root_path' },
         { path: '/createuser', component: UserNew, name: 'new_user_path' },
         { path: '/users/:id/edit', component: UserEdit, name: 'edit_user_path' },
