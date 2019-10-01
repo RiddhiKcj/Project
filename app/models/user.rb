@@ -4,8 +4,8 @@ class User < ApplicationRecord
   after_validation :geocode, if: :current_sign_in_ip_changed?
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and ,:recoverable,:omniauthable, :registerable, :confirmable,
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :validatable, :trackable,:omniauthable
+  devise :database_authenticatable,
+         :recoverable, :rememberable, :validatable, :trackable
 
 
   validates_presence_of :username 

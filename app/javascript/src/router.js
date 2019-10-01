@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { store } from './store/store.js'
 Vue.use(VueRouter)
 
 import Index from '../src/components/index.vue'
@@ -10,13 +11,15 @@ import Dashboard from '../src/components/dashboard.vue'
 import Widgets from '../src/components/widgets.vue'
 import UserEdit from '../src/users/edit.vue';
 import UserNew from '../src/users/new.vue';
+import Logout from '../src/users/logout.vue';
 
 const router = new VueRouter({
     mode: 'history',
     routes:[
         { path: '/', component: Index, name: 'root_path' },
-        { path: '/api/users/new', component: UserNew, name: 'new_user_path' },
+        { path: '/createuser', component: UserNew, name: 'new_user_path' },
         { path: '/users/:id/edit', component: UserEdit, name: 'edit_user_path' },
+        { path: '/logout', component: Logout, name: 'logout_path' },
         { path: '/api/weather', component: Weather, name: 'weather_path' },
         { path: '/api/news', component: News, name: 'news_path' },
         { path: '/api/currencyexc', component: Currencyexc, name: 'currencyexc_path' },
@@ -25,4 +28,12 @@ const router = new VueRouter({
         
     ]
 });
+router.beforeEach((to, from, next) => {
+    if (store.state.user) {
+        store.dispatch('index');
+        next();
+    }
+  })
+
+
 export default router;

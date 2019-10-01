@@ -28,8 +28,7 @@
       required
     ></v-text-field>
     <v-btn class="mr-4" @click.prevent="submit">submit</v-btn>
-    <v-btn >Cancel</v-btn>
-    <router-link :to="{ name: 'users_path' }" class="btn btn-default pull-left">Back</router-link>
+    <v-btn class="mr-4" @click="navigateToRoot">Cancel</v-btn>
   </v-form>
 </template>
 
@@ -56,6 +55,9 @@
           password_confirmation: this.passwordConfirmation
         });
       },
+      navigateToRoot() {
+        this.$router.push({path: '/'});
+      }
     },
     created() {
       console.log(this.userObj);

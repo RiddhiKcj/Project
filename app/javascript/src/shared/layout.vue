@@ -56,8 +56,7 @@
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>Welcome {{currentUser}}</v-toolbar-title>
         </v-app-bar>
-        <v-content>
-            
+        <v-content>     
             <slot/>
         </v-content> 
         <v-footer app>
@@ -68,12 +67,15 @@
 <script>
 export default {
     data: () => ({
-    drawer: null,
+        drawer: null,
+        user_id: null
     }),
     computed: {
         currentUser(){
-            return this.$store.state.user.username
-        }
+            this.user_id = this.$store.state.user.id;
+            console.log(this.user_id);
+            return this.$store.state.user.username;
+        },
     },
     methods: {
         navigateHome() {
@@ -86,14 +88,25 @@ export default {
             this.$router.push({path: '/widgets'});
         },
         navigateProfileEdit() {
-            this.$router.push({path: '/users/edit'});
+            this.$router.push({path: '/users/' + this.user_id +'/edit'});
         },
         LogoutSession() {
-            this.$router.push({path: '/logout'});
+            var self = this;
+            $.ajax({
+          url: '/users/sign_out',
+          dataType: "json", 
+          type: "DELETE",
+          contentType: "application/json",
+          success: function (data) {
+            self.$store.commit('emptyStore');
+            console.log("Logged out successfully");
+            window.location.reload()
+          }
+        });
         }
     },
     created () {
-    this.$vuetify.theme.dark = true
+        this.$vuetify.theme.dark = true;
     },
 }
 </script>

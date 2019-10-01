@@ -21,6 +21,11 @@ export const store = new Vuex.Store({
         initSelectedWidgets(state,data) {
             state.selectedWidgets = data;
             return state;
+        },
+        emptyStore(state) {
+            state.user = {};
+            state.widgets = {},
+            state.selectedWidgets = {};
         }
     },
     actions: {

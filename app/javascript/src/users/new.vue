@@ -2,7 +2,7 @@
   <layout>
       <div class='col-xs-12'>
         <v-toolbar color="primary" dark flat>
-        <v-toolbar-title><strong>Login</strong></v-toolbar-title>
+        <v-toolbar-title><strong>Sign Up</strong></v-toolbar-title>
         </v-toolbar>
         <p id="errors" v-for="(item,key) in error" v-bind:innerhtml="error">{{key}} : <span v-for="err in item">{{err}}</span></p>
         <form-user :userObj="userObj" @create="createUser">
@@ -45,10 +45,12 @@
           data: JSON.stringify(userObj),
           contentType: "application/json",
           success: function (data) {
+            self.$router.push({path: '/'});
             console.log(data);
           },
           error: function(data){
-            self.error = data["responseJSON"]["errors"];
+            if(["responseJSON"])
+              self.error = data["responseJSON"]["errors"];
             console.log(data);
           }
         });
