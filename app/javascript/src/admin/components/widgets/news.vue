@@ -35,7 +35,7 @@
       console.log('reached news');
       var self = this;
       $.ajax({
-        url: '/api/news',
+        url: '/api/admin/widgets/news',
         dataType: "json", 
         type: "GET",
         success: function (data) {

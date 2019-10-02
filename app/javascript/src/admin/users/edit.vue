@@ -16,7 +16,7 @@
     </layout>
   </template>
   <script>
-  import Layout from '../shared/centred_layout.vue'
+  import Layout from '../../shared/centred_layout.vue'
   export default {
     components: {
       'layout' : Layout

@@ -1,4 +1,4 @@
-class Api::Admin::User::SelectedWidgets::MyapisController < Api::Admin::Users::UsersController
+class Api::Admin::MyapisController < AdminController
     def create
         puts params
         @user = User.find(params[:user_id])

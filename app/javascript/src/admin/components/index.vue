@@ -10,11 +10,7 @@
   </layout>   
 </template>
 <script>
-import Layout from '../shared/layout.vue'
   export default {
-    components: {
-    Layout
-    },
     computed: {
       userData(){
         return this.$store.state.user;

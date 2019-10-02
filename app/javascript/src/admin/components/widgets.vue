@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div v-for="api in widgets" class="col-sm-3">
-                <v-img :src="require('src/components/images/' + api.name + '.svg')"
+                <v-img :src="require('src/admin/components/images/' + api.name + '.svg')"
                 max-width="100"
                 max-height="100">
                 </v-img>
@@ -38,7 +38,7 @@
       addWidgets(){
         var self = this
         $.ajax({
-          url: '/users/' + self.userId + '/myapis',
+          url: '/api/admin/users/' + self.userId + '/myapis',
           dataType: "json", 
           type: "POST",
           data: JSON.stringify(self.selected),

@@ -10,10 +10,10 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'font-awesome/css/font-awesome.min.css'
-import App from '../../app.vue'
-import router from '../../src/router.js'
-import Layout from '../../src/shared/layout.vue'
-import { store } from '../../src/store/store'
+import App from './../../src/admin/app.vue'
+import router from './../../src/admin/routes.js'
+import Layout from './../../src/shared/layout.vue'
+import { store } from './../../src/admin/store/store'
 
 Vue.use(Vuetify)
 Vue.component('layout',Layout)
@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const el = document.body.appendChild(document.createElement('hello'))
   const app = new Vue({
     el,
-    render: h => h(App),
+    router:router,
+    store,
     vuetify: new Vuetify({}),
-    router,
-    store
+    render: h => h(App),
   })
   console.log(app)
 })

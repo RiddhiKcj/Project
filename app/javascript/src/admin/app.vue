@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-      <router-view></router-view>
+    <router-view></router-view>
   </v-app>
 </template>
 
@@ -8,6 +8,14 @@
   export default {
     props: {
       source: String,
+    },
+    data: () => ({
+      drawer: null,
+    }),
+    methods: {
+      navigateDashboard() {
+        this.$router.push({path: '/dashboard'});
+      }
     },
     created () {
       this.$vuetify.theme.dark = true

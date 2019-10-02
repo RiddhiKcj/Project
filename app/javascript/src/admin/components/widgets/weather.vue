@@ -18,7 +18,7 @@
                       <span style="float:right; margin-right:40px;"><h4 style="color:#f8f8f8;">{{ val.temperature }} &#730;F</h4>
                       <h6 style="color:#f8f8f8;">Feels like &nbsp;{{ val.apparentTemperature }} &#730;F</h6></span>
                       <h6 style="color:#f8f8f8;">{{ convertTime(val.time) }}</h6><br />
-                      <span><v-img :src="require('../../../../assets/images/' + val.icon + '.svg')" class="weather-img"></v-img></span>
+                      <span><v-img :src="require('../../../../../assets/images/' + val.icon + '.svg')" class="weather-img"></v-img></span>
                       <h5 style="color:#f8f8f8;"><b>{{ val.summary }}</b></h5>
                       <br />                 
                       <div class="card col-sm-4" style="width: 15rem;">
@@ -77,7 +77,7 @@
                   <ul>
                     <div v-for="(val,key) in weatherData">
                       <div v-if="key === 'hourly'">
-                          <span><v-img :src="require('../../../../assets/images/' + val.icon + '.svg')" class="weather-img"></v-img></span>
+                          <span><v-img :src="require('../../../../../assets/images/' + val.icon + '.svg')" class="weather-img"></v-img></span>
                         <h5 style="color:#f8f8f8;"><strong>{{ val.summary }}</strong></h5>
                         <v-simple-table dark fixed-header height="350px">
                           <thead>
@@ -92,7 +92,7 @@
                           <tbody>
                               <tr v-for="(obj,key,index) in val.data.slice(0,8) ">
                                   <td>{{ convertTime(obj.time).getHours()  }} : 00</td>
-                                  <td><v-img :src="require('../../../../assets/images/' + obj.icon + '.svg')" class="row-img"></v-img></td>
+                                  <td><v-img :src="require('../../../../../assets/images/' + obj.icon + '.svg')" class="row-img"></v-img></td>
                                   <td><b>{{ obj.summary  }}</b></td>
                                   <td>{{ obj.precipProbability * 100 }} % </td>
                                   <td>{{ obj.temperature  }} &#730;F</td>
@@ -112,7 +112,7 @@
                   <h3 style="color:#f8f8f8;">Daily Report</h3>
                   <div v-for="(val,key) in weatherData">
                     <div v-if="key === 'daily'">
-                      <v-img :src="require('../../../../assets/images/' + val.icon + '.svg')" class="weather-img"></v-img>
+                      <v-img :src="require('../../../../../assets/images/' + val.icon + '.svg')" class="weather-img"></v-img>
 
                       <h5 style="color:#f8f8f8;"><strong>{{ val.summary }}</strong></h5>
                       <v-simple-table dark fixed-header height="350px">
@@ -130,7 +130,7 @@
                         <tbody>
                             <tr v-for="(obj,key,index) in val.data">
                               <td scope="row">{{ findDay(obj.time) }},{{ findMonth(obj.time) }} {{ convertTime(obj.time).getDate() }}</td>
-                              <td><v-img :src="require('../../../../assets/images/' + obj.icon + '.svg')" class="row-img"></v-img></td>
+                              <td><v-img :src="require('../../../../../assets/images/' + obj.icon + '.svg')" class="row-img"></v-img></td>
                               <td>{{ obj.summary}}</td>
                               <td>{{ obj.precipProbability * 100}}%</td>
                               <td>{{ obj.temperatureHigh }}&#730;F ~ {{ obj.temperatureLow }}&#730;F</td>
@@ -189,7 +189,7 @@ export default{
     console.log('reached weather');
     var self = this;
     $.ajax({
-      url: '/api/weather',
+      url: '/api/admin/widgets/weather',
       dataType: "json", 
       type: "GET",
       success: function (data) {

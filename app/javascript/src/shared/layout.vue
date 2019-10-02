@@ -90,19 +90,9 @@ export default {
         navigateProfileEdit() {
             this.$router.push({path: '/users/' + this.user_id +'/edit'});
         },
-        LogoutSession() {
-            var self = this;
-            $.ajax({
-          url: '/users/sign_out',
-          dataType: "json", 
-          type: "DELETE",
-          contentType: "application/json",
-          success: function (data) {
-            self.$store.commit('emptyStore');
-            console.log("Logged out successfully");
-            window.location.reload()
-          }
-        });
+        LogoutSession() { 
+            this.$store.dispatch('logout').then( response => { 
+                    window.location.href= '/'; });
         }
     },
     created () {

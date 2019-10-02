@@ -31,7 +31,7 @@ export const store = new Vuex.Store({
     actions: {
         index(context) {
         $.ajax({
-            url: '/api/welcome',
+            url: '/api/admin/home',
             type: 'get',
             dataType: "json",
             success: function(data) {
@@ -41,6 +41,19 @@ export const store = new Vuex.Store({
             context.commit('initSelectedWidgets', data.selectedWidgets)
             }
         })
-        },        
+        }, 
+        logout(context) {
+            return new Promise((resolve, reject) => {
+            $.ajax({
+                url: '/users/sign_out',
+                type: "DELETE",
+                contentType: "application/json",
+                success: function (data) {
+                    context.commit('emptyStore');
+                    resolve();
+                }
+              })
+            });
+        }       
     }
 });

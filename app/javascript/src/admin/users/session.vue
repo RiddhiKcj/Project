@@ -48,7 +48,7 @@ export default {
         contentType: "application/json",
         success: function (data) {
           console.log(data);
-          self.$router.push({path: '/'});
+          window.location.href= '/';
         }
       });
     }, 
