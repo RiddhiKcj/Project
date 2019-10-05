@@ -1,10 +1,10 @@
 class WelcomeController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authorize_access_request!
   def index
     @user = current_user
-    @widgets = Globalapi.all
+    @widgets = Widget.all
     @selectedWidgets = []
-    @user.myapis.each do |api|
+    @user.selectedwidgets.each do |api|
       @selectedWidgets.push(api.name)
     end
     data = {

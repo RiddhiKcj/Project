@@ -1,7 +1,8 @@
 class Api::CurrencyexcController < ApplicationController
-    def index
-      currencyexcApi = Globalapi.find_by name: 'currencyexc'
-      key = currencyexcApi.api
+  before_action :authorize_access_request! 
+  def index
+      currencyexcApi = Widget.find_by name: 'currencyexc'
+      key = currencyexcApi.apikey
       # FORMAT url = '...apiKey='#{key}
       url = currencyexcApi.url + key
       responseData = (RestClient.get(url))

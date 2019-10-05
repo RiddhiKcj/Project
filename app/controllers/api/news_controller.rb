@@ -1,7 +1,8 @@
 class Api::NewsController < ApplicationController
+  before_action :authorize_access_request!
   def index
-    newsApi = Globalapi.find_by name: 'news'
-    key = newsApi.api
+    newsApi = Widget.find_by name: 'news'
+    key = newsApi.apikey
     # url format = '...apiKey='#{key}
     url = newsApi.url + key
     responseData = (RestClient.get(url))

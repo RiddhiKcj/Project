@@ -1,19 +1,22 @@
 class ApplicationController < ActionController::Base
-	protect_from_forgery with: :exception
-	before_action :configure_permitted_parameters, if: :devise_controller?
-	before_action :authenticate_user!
-	layout :layout_by_resource
+	skip_before_action :verify_authenticity_token
+    protect_from_forgery prepend: true, with: :exception
+	include JWTSessions::RailsAuthorization
+	rescue_from JWTSessions::Errors::Unauthorized, with: :not_authorized
+
 	def index
 		render template: 'application'
 	end
-
+	
 	protected
-
-	def configure_permitted_parameters
-		devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
+	def current_user
+		@current_user ||= User.find(payload['user_id'])
 	end
-	def layout_by_resource
-		user_signed_in? ? false : "index_layout"
+	
+	private
+
+	def not_authorized
+		render json: { error: 'Not authorized' }, status: :unauthorized
 	end
 end
 

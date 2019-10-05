@@ -4,56 +4,98 @@
         <v-toolbar color="primary" dark flat>
         <v-toolbar-title><strong>Sign Up</strong></v-toolbar-title>
         </v-toolbar>
-        <p id="errors" v-for="(item,key) in error" v-bind:innerhtml="error">{{key}} : <span v-for="err in item">{{err}}</span></p>
-        <form-user :userObj="userObj" @create="createUser">
-            <input type="hidden" name="authenticity_token" :value="csrf">
-        </form-user>
+        <div id="errors" v-if="error">{{error}}</div>
+        <v-form  @submit.prevent="signup">
+          <v-text-field
+            v-model="username"
+            :counter="10"
+            label="Username"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="email"
+            label="E-mail"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            :append-icon="show1 ? 'visibility' : 'visibility_off'"
+            :rules="[rules.required, rules.min]"
+            :type="show1 ? 'text' : 'password'"
+            label="Password"
+            hint="At least 8 characters"
+            counter
+            @click:append="show1 = !show1">
+          </v-text-field>
+          <v-text-field
+            v-model="password_confirmation"
+            label="Confirm Password"
+            required
+          ></v-text-field>
+          <v-btn class="mr-4" type="submit">submit</v-btn>
+          <v-btn class="mr-4" @click="navigateToRoot">Cancel</v-btn>
+        </v-form>
       </div>
     </layout> 
   </template>
   
   <script>
-  import FormUser from './_form.vue';
   import Layout from '../shared/centred_layout.vue'
 
   export default {
     components: {
-      'form-user': FormUser,
       'layout' : Layout
     },
-  
+    name: 'Signup',
     data: function() {
       return ({
        csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-       userObj: {
+       show1: false,
         username: '',
         email: '',
         password: '',
-        password_confirmation: ''
-       },
+        password_confirmation: '',
+        rules: {
+        required: value => !!value || 'Required.',
+          min: v => v.length >= 8 || 'Min 8 characters',
+        },
        error: {}
     })
     },
+    created () {
+    this.checkSignedIn()
+    },
+    updated () {
+      this.checkSignedIn()
+    },
     methods: {
-      createUser(userObj) {
-        var self = this;
-        console.log(userObj);
-        $.ajax({
-          url: '/users',
-          dataType: "json", 
-          type: "POST",
-          data: JSON.stringify(userObj),
-          contentType: "application/json",
-          success: function (data) {
-            self.$router.push({path: '/'});
-            console.log(data);
-          },
-          error: function(data){
-            if(["responseJSON"])
-              self.error = data["responseJSON"]["errors"];
-            console.log(data);
-          }
-        });
+      signup () {
+      this.$http.plain.post('/signup', { username: this.username, email: this.email, password: this.password, password_confirmation: this.password_confirmation })
+        .then(response => this.signupSuccessful(response))
+        .catch(error => this.signupFailed(error))
+      },
+      signupSuccessful (response) {
+        if (!response.data.csrf) {
+          this.signupFailed(response)
+          return
+        }
+        localStorage.csrf = response.data.csrf
+        localStorage.signedIn = true
+        this.error = ''
+        this.$router.replace('/home')
+      },
+      signupFailed (error) {
+        this.error = (error.response && error.response.data && error.response.data.error) || 'Something went wrong'
+        delete localStorage.csrf
+        delete localStorage.signedIn
+      },
+      checkSignedIn () {
+        if (localStorage.signedIn) {
+          this.$router.replace('/home')
+        }
+      },
+      navigateToRoot() {
+          this.$router.push({path: '/'});
       }
     }
   }

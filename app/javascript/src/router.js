@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import { store } from './store/store.js'
 Vue.use(VueRouter)
 
+import RootIndex from './rootindex.vue'
 import Index from '../src/components/index.vue'
 import News from '../src/components/widgets/news.vue'
 import Weather from '../src/components/widgets/weather.vue'
@@ -16,7 +17,8 @@ import Logout from '../src/users/logout.vue';
 const router = new VueRouter({
     mode: 'history',
     routes:[
-        { path: '/', component: Index, name: 'root_path' },
+        { path: '/', component: RootIndex, name: 'root_path' },
+        { path: '/home', component: Index, name: 'home_path' },
         { path: '/createuser', component: UserNew, name: 'new_user_path' },
         { path: '/users/:id/edit', component: UserEdit, name: 'edit_user_path' },
         { path: '/logout', component: Logout, name: 'logout_path' },
@@ -29,10 +31,13 @@ const router = new VueRouter({
     ]
 });
 router.beforeEach((to, from, next) => {
-    if (store.state.user) {
-        store.dispatch('index');
-        next();
+    if(to.path != '/'){
+        if (store.state.user) {
+            store.dispatch('index');
+            next();
+        }
     }
+    next()
   })
 
 

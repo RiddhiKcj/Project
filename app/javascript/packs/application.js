@@ -1,10 +1,29 @@
-/* eslint no-console:0 */
-// This file is automatically compiled by Webpack, along with any other files
-// present in this directory. You're encouraged to place your actual application logic in
-// a relevant structure within app/javascript and only use these pack files to reference
-// that code so it'll be compiled.
-//
-// To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
-// layout file, like app/views/layouts/application.html.erb
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+import App from '../app.vue'
+import router from '../src/router.js'
+import Layout from '../src/shared/layout.vue'
+import { store } from '../src/store/store'
+import VueAxios from 'vue-axios'
+import { securedAxiosInstance, plainAxiosInstance } from '../src/backend/axios'
 
-console.log('Hello World from Webpacker')
+Vue.use(Vuetify)
+Vue.use(VueAxios, {
+  secured: securedAxiosInstance,
+  plain: plainAxiosInstance
+})
+Vue.component('layout',Layout)
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.body.appendChild(document.createElement('hello'))
+  const app = new Vue({
+    el,
+    vuetify: new Vuetify({}),
+    router,
+    store,
+    securedAxiosInstance,
+    plainAxiosInstance,
+    render: h => h(App),
+  })
+  console.log(app)
+})

@@ -1,5 +1,4 @@
-class MyapisController < ApplicationController
-
+class SelectedwidgetsController < ApplicationController
     def create
         puts params
         @user = User.find(params[:user_id])

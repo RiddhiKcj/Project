@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_23_030752) do
+ActiveRecord::Schema.define(version: 2019_10_05_093753) do
 
   create_table "globalapis", force: :cascade do |t|
     t.string "name"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 2019_09_23_030752) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_myapis_on_user_id"
+  end
+
+  create_table "selectedwidgets", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_selectedwidgets_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,10 +62,21 @@ ActiveRecord::Schema.define(version: 2019_09_23_030752) do
     t.boolean "admin"
     t.float "latitude"
     t.float "longitude"
+    t.string "password_digest"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "widgets", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "apikey"
+    t.boolean "active"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "myapis", "users"
+  add_foreign_key "selectedwidgets", "users"
 end

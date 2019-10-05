@@ -1,60 +1,83 @@
 <template>
-        <form method="post" action="/users/sign_in">
-          <input type="hidden" name="authenticity_token" :value="csrf">
-          <input type="hidden" name="commit" :value="commit">
-          <div class="field">
-            <label class="label">Username</label>
-            <input type="text" class="input" name="username" v-model="user.username">
-          </div>
-      
-          <div class="field">
-            <label class="label">Password</label>
-            <input type="password" class="input" name="password" v-model="user.password">
-          </div>
-      
-          <div class="field">
-            <button type="submit"  @click.prevent="submit">Submit</button>
-          </div>
-        </form>
-      </template>
+  <layout>
+    <div class='col-xs-12'>
+      <v-toolbar color="primary" dark flat>
+        <v-toolbar-title><strong>Login</strong></v-toolbar-title>
+      </v-toolbar>
+      <div id="errors" v-if="error">{{ error }}</div>
+      <v-form method="post" @submit.prevent="signin">
+        <v-text-field
+          :counter="10"
+          label="Username"
+          required
+          v-model="username"
+        ></v-text-field>
+        <v-text-field
+          label="Password"
+          required
+          v-model="password"
+        ></v-text-field>
+
+        <div class="field">
+          <v-btn class="mr-4" type="submit">Submit</v-btn>
+        </div>
+      </v-form>
+  </div>
+</layout>
+</template>
       
 <script>
+import Layout from '../shared/centred_layout.vue'
 export default {
+  name: 'Signin',
+  components: {
+      'layout' : Layout
+    },
   data: function() {
     return ({
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      user: {
       username: '',
       password: '',
-      },
-      commit: 'login',
+      error: ''
     })
   },
+  created () {
+    this.checkSignedIn()
+  },
+  updated () {
+    this.checkSignedIn()
+  },
   methods: {
-    submit () {
-      var self = this;
-      console.log(self.user);
-      $.ajax({
-        url: '/users/sign_in',
-        dataType: "json", 
-        type: "POST",
-        data: JSON.stringify({
-          user: {
-            username: self.user.username,
-            password: self.user.password
-          },
-          commit: self.commit,
-        }),
-        contentType: "application/json",
-        success: function (data) {
-          console.log(data);
-          self.$router.push({path: '/'});
-        }
-      });
-    }, 
+    signin () {
+      this.$http.plain.post('/signin', { username: this.username, password: this.password })
+        .then(response => this.signinSuccessful(response))
+        .catch(error => this.signinFailed(error))
+    },
+    signinSuccessful (response) {
+      if (!response.data.csrf) {
+        this.signinFailed(response)
+        return
+      }
+      localStorage.csrf = response.data.csrf
+      localStorage.signedIn = true
+      this.error = ''
+      this.$router.replace('/home')
+    },
+    signinFailed (error) {
+      this.error = (error.response && error.response.data && error.response.data.error) || ''
+      delete localStorage.csrf
+      delete localStorage.signedIn
+    },
+    checkSignedIn () {
+      if (localStorage.signedIn) {
+        this.$router.replace('/home')
+      }
+    }
   }
 }
 </script>
 
-<style scoped>
+<style>
+  #errors{
+    color: rgb(230, 36, 36);
+  }
 </style>

@@ -1,11 +1,10 @@
-class CreateGlobalapis < ActiveRecord::Migration[5.2]
+class CreateWidgets < ActiveRecord::Migration[6.0]
   def change
-    create_table :globalapis do |t|
+    create_table :widgets do |t|
       t.string :name
       t.string :url
-      t.string :api
+      t.string :apikey
       t.boolean :active
-
       t.timestamps
     end
   end

@@ -91,18 +91,14 @@ export default {
             this.$router.push({path: '/users/' + this.user_id +'/edit'});
         },
         LogoutSession() {
-            var self = this;
-            $.ajax({
-          url: '/users/sign_out',
-          dataType: "json", 
-          type: "DELETE",
-          contentType: "application/json",
-          success: function (data) {
-            self.$store.commit('emptyStore');
-            console.log("Logged out successfully");
-            window.location.reload()
-          }
-        });
+        var self = this;
+        this.$http.secured.delete('/signin')
+        .then(response => {
+            delete localStorage.csrf
+            delete localStorage.signedIn
+            this.$router.replace('/')
+            })
+            .catch(error => this.setError(error, 'Cannot sign out'))
         }
     },
     created () {

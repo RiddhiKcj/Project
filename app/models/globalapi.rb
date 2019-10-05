@@ -1,4 +1,0 @@
-class Globalapi < ApplicationRecord
-
-      
-end
