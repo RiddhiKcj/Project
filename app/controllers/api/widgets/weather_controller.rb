@@ -1,4 +1,4 @@
-class Api::WeatherController < ApplicationController
+class Api::Widgets::WeatherController < ApplicationController
   before_action :authorize_access_request!
   def index
     user = current_user

@@ -7,11 +7,13 @@ class ApplicationController < ActionController::Base
 	def index
 		render template: 'application'
 	end
-	
-	protected
+
 	def current_user
 		@current_user ||= User.find(payload['user_id'])
 	end
+	
+	protected
+
 	
 	private
 

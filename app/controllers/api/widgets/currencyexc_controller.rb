@@ -1,4 +1,4 @@
-class Api::CurrencyexcController < ApplicationController
+class Api::Widgets::CurrencyexcController < ApplicationController
   before_action :authorize_access_request! 
   def index
       currencyexcApi = Widget.find_by name: 'currencyexc'

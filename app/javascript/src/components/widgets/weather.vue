@@ -189,7 +189,7 @@ export default{
     console.log('reached weather');
     var self = this;
     $.ajax({
-      url: '/api/weather',
+      url: '/api/widgets/weather',
       dataType: "json", 
       type: "GET",
       success: function (data) {

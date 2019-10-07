@@ -32,7 +32,7 @@
         console.log('reached currencyexcData');
         var self = this;
         $.ajax({
-          url: '/api/currencyexc',
+          url: '/api/widgets/currencyexc',
           dataType: "json", 
           type: "GET",
           success: function (data) {

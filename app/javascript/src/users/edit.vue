@@ -39,7 +39,7 @@
         var self = this;
         self.user_id = self.$route.params.id;
         $.ajax({
-          url: '/users/'+self.user_id,
+          url: '/api/users/'+self.user_id,
           dataType: "json", 
           type: "PUT",
           data: self.userObj,

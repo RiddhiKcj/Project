@@ -31,7 +31,7 @@ export const store = new Vuex.Store({
     actions: {
         index(context) {
         $.ajax({
-            url: '/api/welcome',
+            url: '/api/home',
             type: 'get',
             dataType: "json",
             success: function(data) {

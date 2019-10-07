@@ -1,4 +1,4 @@
-class Api::NewsController < ApplicationController
+class Api::Widgets::NewsController < ApplicationController
   before_action :authorize_access_request!
   def index
     newsApi = Widget.find_by name: 'news'
