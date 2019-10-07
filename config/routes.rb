@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-
+  root :to => "application#index"
   namespace :api, :defaults => { :format => 'json' } do
     resources :users, only: :update
     get '/home', to: "welcome#index", defaults: { format: 'json' }
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post 'signup', controller: :signup, action: :create
   delete 'signin', controller: :signin, action: :destroy
 
-  root :to => "application#index"
+  
   match "*path", to: "application#index", format: false, via: :get
   get '/admin', to: 'admin#index'
   match "/admin/*path", to: "admin#index", format: false, via: :get

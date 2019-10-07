@@ -33,7 +33,6 @@
             required
           ></v-text-field>
           <v-btn class="mr-4" type="submit">submit</v-btn>
-          <v-btn class="mr-4" @click="navigateToRoot">Cancel</v-btn>
         </v-form>
       </div>
     </layout> 
@@ -49,7 +48,6 @@
     name: 'Signup',
     data: function() {
       return ({
-       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
        show1: false,
         username: '',
         email: '',
@@ -59,7 +57,7 @@
         required: value => !!value || 'Required.',
           min: v => v.length >= 8 || 'Min 8 characters',
         },
-       error: {}
+       error: ''
     })
     },
     created () {
@@ -93,9 +91,6 @@
         if (localStorage.signedIn) {
           this.$router.replace('/home')
         }
-      },
-      navigateToRoot() {
-          this.$router.push({path: '/'});
       }
     }
   }

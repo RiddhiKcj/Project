@@ -41,6 +41,6 @@ export const store = new Vuex.Store({
             context.commit('initSelectedWidgets', data.selectedWidgets)
             }
         })
-        },        
+        }        
     }
 });

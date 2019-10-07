@@ -64,6 +64,7 @@
             console.log(data);
             self.$store.dispatch('index');
             self.dialog = true;
+            self.$router.replace('/home');
           },
           error: function(data){
             console.log(data);

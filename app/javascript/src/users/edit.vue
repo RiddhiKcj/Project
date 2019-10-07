@@ -1,8 +1,23 @@
 <template>
   <layout>
+  <v-row justify="center">
+      <v-dialog v-model="dialog" max-width="500">
+        <v-card>  
+          <v-card-title>
+            <p>Whola! Account updated Successfully.</p>
+          </v-card-title>
+          <v-card-actions>
+          <div class="flex-grow-1"></div>  
+          <v-btn color="green darken-1" text @click="dialog = false">
+            OK
+          </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
     <v-toolbar color="primary" dark flat>
     <v-toolbar-title>Edit</v-toolbar-title></v-toolbar>
-    <p id="errors" v-for="(item,key) in error" v-bind:innerhtml="error">{{key}} : <span v-for="err in item">{{err}}</span></p>
+    <p id="errors" v-if="error">{{error}}</span></p>
     <v-form v-on:submit.prevent="create" accept-charset="UTF-8" class="form">
       <input type='hidden' name='_method' value='put'>
       <v-text-field v-model="userObj.username" :counter="10" label="Username" required="true">
@@ -24,30 +39,28 @@
   
     data: function() {
       return ({
-       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+       dialog: false,
        userObj: {
         username: this.$store.state.user.username,
         email: this.$store.state.user.email,
-        password: ''
+        password: '',
+        user_id: this.$store.state.user.id
        },
-        user_id: null,
-       error: {}
+       error: ''
     })
     },
     methods: {
       updateUser() {
         var self = this;
-        self.user_id = self.$route.params.id;
+        var user_id = self.$route.params.id;
         $.ajax({
-          url: '/api/users/'+self.user_id,
+          url: '/api/users/'+ user_id,
           dataType: "json", 
           type: "PUT",
           data: self.userObj,
-          success: function (data) {
-            alert("Profile updated successfully")
-            navigateToRoot;
-            console.log(data);
-            self.router.go({name: root_path})
+          success: function () {
+            self.dialog = true;
+            self.$router.replace('/home');
           },
           error: function(data){
             if (data["responseJSON"]) {

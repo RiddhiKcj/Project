@@ -1,4 +1,5 @@
 class Api::SelectedwidgetsController < ApplicationController
+    before_action :authorize_access_request!
     def create
         puts params
         @user = User.find(params[:user_id])

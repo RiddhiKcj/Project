@@ -30,15 +30,15 @@ const router = new VueRouter({
         
     ]
 });
-router.beforeEach((to, from, next) => {
-    if(to.path != '/'){
-        if (store.state.user) {
-            store.dispatch('index');
-            next();
-        }
-    }
-    next()
-  })
+// router.beforeEach((to, from, next) => {
+//     if(to.path != '/'){
+//         if (store.state.user) {
+//             store.dispatch('index');
+//             next();
+//         }
+//     }
+//     next()
+//   })
 
 
 export default router;
