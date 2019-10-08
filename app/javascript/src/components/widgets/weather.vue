@@ -186,14 +186,16 @@ export default{
     }
   },
   created() {
-    console.log('reached weather');
     var self = this;
     $.ajax({
+      beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-TOKEN', localStorage.csrf);
+                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.access);
+              },
       url: '/api/widgets/weather',
       dataType: "json", 
       type: "GET",
       success: function (data) {
-        console.log(data);
         self.weatherData = data.weatherData
         self.address = data.address  
       }

@@ -23,7 +23,8 @@ securedAxiosInstance.interceptors.request.use(config => {
   if (method !== 'OPTIONS' && method !== 'GET') {
     config.headers = {
       ...config.headers,
-      'X-CSRF-TOKEN': localStorage.csrf
+      'X-CSRF-TOKEN': localStorage.csrf,
+      Authorization: 'Bearer ' +  localStorage.access
     }
   }
   console.log(config);

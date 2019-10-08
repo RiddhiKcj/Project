@@ -9,7 +9,7 @@
           <v-card-actions>
           <div class="flex-grow-1"></div>  
           <v-btn color="green darken-1" text @click="dialog = false">
-            OK
+            <router-link to="/dashboard">Ok</router-link>
           </v-btn>
           </v-card-actions>
         </v-card>
@@ -49,12 +49,21 @@
           }
       },
       created () {
+        if (!localStorage.signedIn) {
+        this.$router.replace('/')
+        } 
+        else {
         this.selected = this.$store.state.selectedWidgets
+        }
       },
     methods: {
       addWidgets(){
         var self = this
         $.ajax({
+          beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-TOKEN', localStorage.csrf);
+                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.access);
+              },
           url: '/api/users/' + self.userId + '/selectedwidgets',
           dataType: "json", 
           type: "POST",
@@ -63,8 +72,7 @@
           success: function (data) {
             console.log(data);
             self.$store.dispatch('index');
-            self.dialog = true;
-            self.$router.replace('/home');
+            self.dialog = true;       
           },
           error: function(data){
             console.log(data);

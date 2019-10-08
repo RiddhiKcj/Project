@@ -9,7 +9,7 @@
           <v-card-actions>
           <div class="flex-grow-1"></div>  
           <v-btn color="green darken-1" text @click="dialog = false">
-            OK
+            <router-link to="/home">Ok</router-link>
           </v-btn>
           </v-card-actions>
         </v-card>
@@ -54,13 +54,16 @@
         var self = this;
         var user_id = self.$route.params.id;
         $.ajax({
+          beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-TOKEN', localStorage.csrf);
+                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.access);
+              },
           url: '/api/users/'+ user_id,
           dataType: "json", 
           type: "PUT",
           data: self.userObj,
           success: function () {
             self.dialog = true;
-            self.$router.replace('/home');
           },
           error: function(data){
             if (data["responseJSON"]) {
@@ -75,7 +78,12 @@
       }
     },
     created() {
+      if (!localStorage.signedIn) {
+      this.$router.replace('/')
+      } 
+      else {
       this.username = this.$store.state.user.username
+      }
     }
   }
   </script>

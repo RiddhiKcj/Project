@@ -3,7 +3,7 @@
       <div class="container">
           <h3> {{ currencyexcData.source }} Rates</h3>
         <v-row justify="center">
-            <v-simple-table dark fixed-header height="460px">
+            <v-simple-table dark fixed-header height="400px">
                 <thead>
                     <tr>
                         <th>Currency</th>
@@ -32,6 +32,10 @@
         console.log('reached currencyexcData');
         var self = this;
         $.ajax({
+          beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-TOKEN', localStorage.csrf);
+                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.access);
+              },
           url: '/api/widgets/currencyexc',
           dataType: "json", 
           type: "GET",
@@ -46,7 +50,9 @@
       h3{
         text-align: center;
       }
-      .v-data-table td, .v-data-table th{
-          padding: 5px;
+      .v-data-table{
+        width: 300px;
+        padding: 10px; 
       }
+
     </style>

@@ -2,6 +2,7 @@
   <layout>
     <div class="container"> 
       <v-row justify="center">
+        <div v-if="selectedWidgets.length === 0">Your Dashboard is empty :(</div>
         <div v-for="api in selectedWidgets" class="col-sm-3">
           <v-btn icon @click="$router.push('/api/' + api )">
             <v-img :src="require('src/components/images/' + api + '.png')"
