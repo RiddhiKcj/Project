@@ -72,7 +72,6 @@
                         </v-sheet>
                 </v-card-text>
             </div>
-        
         </v-row>
     </v-container>
 </template>

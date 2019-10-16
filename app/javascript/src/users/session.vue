@@ -13,6 +13,7 @@
           v-model="username"
         ></v-text-field>
         <v-text-field
+          :type="'password'"
           label="Password"
           required
           v-model="password"
@@ -58,6 +59,7 @@ export default {
         return
       }
       localStorage.csrf = response.data.csrf
+      localStorage.access = response.data.access
       localStorage.signedIn = true
       this.error = ''
       this.$router.replace('/home')

@@ -7,9 +7,10 @@ Rails.application.routes.draw do
     get '/home', to: "welcome#index", defaults: { format: 'json' }
 
     namespace :widgets do
-      resources :weather, only: :index
+      resources :weather, only: [:index, :create]
       resources :news, only: :index
       resources :currencyexc, only: :index
+      resources :movies, only: :index
     end
 
     resources :users do

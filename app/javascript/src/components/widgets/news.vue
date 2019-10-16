@@ -32,14 +32,16 @@
       }
     },
     created() {
-      console.log('reached news');
       var self = this;
       $.ajax({
+        beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-TOKEN', localStorage.csrf);
+                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.access);
+              },
         url: '/api/widgets/news',
         dataType: "json", 
         type: "GET",
         success: function (data) {
-          console.log(data);
           self.newsData = data.newsData;    
         }
       });

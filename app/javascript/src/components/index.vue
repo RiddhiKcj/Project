@@ -21,7 +21,12 @@ import Layout from '../shared/layout.vue'
       }
     },
     created() {
-      this.$store.dispatch('index')
+      if (!localStorage.signedIn) {
+        this.$router.replace('/')
+      }
+      else{
+        this.$store.dispatch('index')
+      }
     }
   }
 </script>

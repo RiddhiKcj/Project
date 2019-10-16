@@ -1,5 +1,6 @@
 class Api::WelcomeController < ApplicationController
   before_action :authorize_access_request!
+
   def index
     @user = current_user
     @widgets = Widget.all
