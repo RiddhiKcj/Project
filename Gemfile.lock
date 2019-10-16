@@ -98,12 +98,6 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
-    devise (4.7.1)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
-      responders
-      warden (~> 1.2.3)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.9.0)
@@ -197,7 +191,6 @@ GEM
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
-    orm_adapter (0.5.0)
     pg (1.1.4)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -262,9 +255,6 @@ GEM
     regexp_parser (1.6.0)
     regexp_property_values (1.0.0)
     remotipart (1.4.3)
-    responders (3.0.0)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
@@ -320,8 +310,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
-    warden (1.2.8)
-      rack (>= 2.0.6)
     web-console (4.0.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -349,7 +337,6 @@ DEPENDENCIES
   chromedriver-helper
   client_side_validations
   coffee-rails
-  devise
   geocoder
   jbuilder (~> 2.5)
   jquery-rails
@@ -377,7 +364,7 @@ DEPENDENCIES
   webpacker (~> 3.5)
 
 RUBY VERSION
-   ruby 2.5.5p157
+   ruby 2.5.7p206
 
 BUNDLED WITH
    2.0.2

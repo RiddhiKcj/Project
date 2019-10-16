@@ -32,7 +32,6 @@
       }
     },
     created() {
-      console.log('reached news');
       var self = this;
       $.ajax({
         beforeSend: function(xhr) {
@@ -43,7 +42,6 @@
         dataType: "json", 
         type: "GET",
         success: function (data) {
-          console.log(data);
           self.newsData = data.newsData;    
         }
       });

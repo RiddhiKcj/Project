@@ -8,6 +8,7 @@ import Index from '../src/components/index.vue'
 import News from '../src/components/widgets/news.vue'
 import Weather from '../src/components/widgets/weather.vue'
 import Currencyexc from '../src/components/widgets/currencyexc.vue'
+import Movies from '../src/components/widgets/movies.vue'
 import Dashboard from '../src/components/dashboard.vue'
 import Widgets from '../src/components/widgets.vue'
 import UserEdit from '../src/users/edit.vue';
@@ -25,20 +26,10 @@ const router = new VueRouter({
         { path: '/api/weather', component: Weather, name: 'weather_path' },
         { path: '/api/news', component: News, name: 'news_path' },
         { path: '/api/currencyexc', component: Currencyexc, name: 'currencyexc_path' },
+        { path: '/api/movies', component: Movies, name: 'movies_path' },
         { path: '/dashboard', component: Dashboard, name: 'dashboard_path' },
         { path: '/widgets', component: Widgets, name: 'widgets_path' }
         
     ]
 });
-// router.beforeEach((to, from, next) => {
-//     if(to.path != '/'){
-//         if (store.state.user) {
-//             store.dispatch('index');
-//             next();
-//         }
-//     }
-//     next()
-//   })
-
-
 export default router;
