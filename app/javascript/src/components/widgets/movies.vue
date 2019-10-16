@@ -1,6 +1,7 @@
 <template>
     <v-container>
         <v-row justify="center">
+                <v-container>
             <v-toolbar dark>
                 <v-toolbar-title><v-icon>mdi-movie</v-icon>&nbsp;<b>Movies</b></v-toolbar-title>
                 <div class="flex-grow-1"></div>
@@ -10,7 +11,8 @@
                 <v-btn icon>
                     <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
-                </v-toolbar>
+            </v-toolbar>
+            
             <div class="content">
                 <v-card-text>
                     <v-sheet class="mx-auto">
@@ -72,6 +74,7 @@
                         </v-sheet>
                 </v-card-text>
             </div>
+        </v-container> 
         </v-row>
     </v-container>
 </template>
