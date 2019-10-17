@@ -1,16 +1,18 @@
 <template>
   <layout>
     <div class="container"> 
-      <v-row justify="center">
-        <div v-if="selectedWidgets.length === 0">Your Dashboard is empty :(</div>
-        <div v-for="api in selectedWidgets" class="col-sm-3">
-          <v-btn icon @click="$router.push('/api/' + api )">
+      <div v-if="selectedWidgets.length === 0">Your Dashboard is empty :(</div>
+      <v-row class="mx-12 my-auto" justify="center" no-gutters>
+        <v-col v-for="api in selectedWidgets" :key="api">
+          <v-btn icon @click="$router.push('/api/' + api )" width="fit-content" height="fit-content">
+          <v-card class="pa=2" outlined height="100" width="100">
             <v-img :src="require('src/components/images/' + api + '.png')"
               max-width="100"
               max-height="100">
-              </v-img>
-          </v-btn>    
-        </div>
+            </v-img>
+          </v-card>
+        </v-btn>
+        </v-col>
       </v-row>
   </div>
   </layout>
@@ -32,11 +34,7 @@
   }
 </script>
 <style scoped>
-  .v-btn__content{
-    background: brown !important;
-    padding: 5px;
-  }
-  .col-sm-3{
-    padding: none;
+  .v-btn{
+    display: inherit !important;
   }
 </style>

@@ -16,7 +16,7 @@
         </v-row>
 
         <v-toolbar fixed extended dark color="black" class="m-0 p-0">
-                <v-toolbar-title><v-icon>mdi-movie</v-icon>&nbsp;<b>Movies</b></v-toolbar-title>
+                <v-toolbar-title><h2><v-icon>mdi-movie</v-icon>&nbsp;<b>Movies</b></h2></v-toolbar-title>
         </v-toolbar>
         <v-toolbar dense> </v-toolbar>
             <v-card dark class="mx-auto" :style="{ backgroundImage: `radial-gradient(circle at 20% 50%, rgb(60, 30, 30) 0%, rgba(27.45%, 13.73%, 13.73%, 0.7) 20%), url(${coverImage})` }">
