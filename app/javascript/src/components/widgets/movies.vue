@@ -1,19 +1,30 @@
 <template>
     <v-container>
         <v-row justify="center">
-                <v-container>
+            <v-dialog v-model="errorDialog" max-width="500">
+                <v-card>  
+                <v-card-title>
+                    <p>Oops, No Movie Found!</p>
+                </v-card-title>
+                <v-card-actions>
+                <div class="flex-grow-1"></div>  
+                <v-btn color="green darken-1" text @click="errorDialog = false"> Close </v-btn>
+                </v-card-actions>
+                </v-card>
+            </v-dialog>
+        <v-container>
             <v-toolbar dark>
                 <v-toolbar-title><v-icon>mdi-movie</v-icon>&nbsp;<b>Movies</b></v-toolbar-title>
                 <div class="flex-grow-1"></div>
                 <v-btn icon @click=navigateHome>
                     <v-icon>mdi-home</v-icon>
                 </v-btn>
-                <v-btn icon>
-                    <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
             </v-toolbar>
-            
-            <div class="content">
+            <v-tabs color="white" dense>
+                    <v-text-field full-width solo flat single-line dense placeholder="search for a movie" prepend-icon="mdi-magnify" class="pl-12" v-model="searchValue" @keyup.enter="searchMovie">
+                    </v-text-field>
+            </v-tabs>
+            <div class="content" v-if="display">
                 <v-card-text>
                     <v-sheet class="mx-auto">
                     <h5> Popular in Hollywood </h5>
@@ -35,7 +46,7 @@
                                 <div class="flip-card-back">
                                     <v-card color="white"> 
                                         <v-card-text>{{ movie.overview }}</v-card-text>
-                                        <v-btn color="info" target="_blank" :href="'https://www.themoviedb.org/movie/'+ movie.id">Details</v-btn>                                  
+                                        <v-btn color="info" target="_blank" :to="'/api/movies/'+ movie.id">Details</v-btn>                                  
                                     </v-card>
                                 </div>
                             </div>
@@ -48,31 +59,54 @@
                     <v-sheet class="mx-auto">
                         <h5> Popular in Bollywood </h5>
                         <v-slide-group multiple show-arrows>
-                                <v-slide-item v-for="movie in bollywoodData.results" v-slot:default="{ active, toggle }">
-                                    <div class="flip-card">
-                                        <div class="flip-card-front">
-                                            <v-card color="white">                                       
-                                                <v-img :src="imageUrl + movie.poster_path" alt="..." max-height="355"></v-img>
-                                                <v-card-title>
-                                                    {{ movie.title }}
-                                                </v-card-title>
-                                                <v-card-text>
-                                                    <v-icon color="red">mdi-heart</v-icon>
-                                                    {{ movie.vote_average * 10 }}%
-                                                </v-card-text>
-                                            </v-card>
-                                        </div>
-                                        <div class="flip-card-back">
-                                            <v-card color="white"> 
-                                                <v-card-text>{{ movie.overview }}</v-card-text>
-                                                <v-btn color="info" target="_blank" :href="'https://www.themoviedb.org/movie/'+ movie.id">Details</v-btn>                                  
-                                            </v-card>
-                                        </div>
+                            <v-slide-item v-for="movie in bollywoodData.results" v-slot:default="{ active, toggle }">
+                                <div class="flip-card">
+                                    <div class="flip-card-front">
+                                        <v-card color="white">                                       
+                                            <v-img :src="imageUrl + movie.poster_path" alt="..." max-height="355"></v-img>
+                                            <v-card-title>
+                                                {{ movie.title }}
+                                            </v-card-title>
+                                            <v-card-text>
+                                                <v-icon color="red">mdi-heart</v-icon>
+                                                {{ movie.vote_average * 10 }}%
+                                            </v-card-text>
+                                        </v-card>
                                     </div>
-                                </v-slide-item>
-                            </v-slide-group>
-                        </v-sheet>
+                                    <div class="flip-card-back">
+                                        <v-card color="white"> 
+                                            <v-card-text>{{ movie.overview }}</v-card-text>
+                                            <!-- <v-btn color="info" target="_blank" :href="'https://www.themoviedb.org/movie/'+ movie.id">Details</v-btn>                                   -->
+                                            <v-btn color="info" target="_blank" :to="'/api/movies/'+ movie.id">Details</v-btn>                               
+                                        </v-card>
+                                    </div>
+                                </div>
+                            </v-slide-item>
+                        </v-slide-group>
+                    </v-sheet>
                 </v-card-text>
+            </div>
+            <div class="content" v-if="!display">
+                <div v-for="movie in searchResult" class="flip-card">
+                    <div class="flip-card-front">
+                        <v-card color="white">                                       
+                            <v-img :src="imageUrl + movie.poster_path" alt="..." max-height="355"></v-img>
+                            <v-card-title>
+                                {{ movie.title }}
+                            </v-card-title>
+                            <v-card-text>
+                                <v-icon color="red">mdi-heart</v-icon>
+                                {{ movie.vote_average * 10 }}%
+                            </v-card-text>
+                        </v-card>
+                    </div>
+                    <div class="flip-card-back">
+                        <v-card color="white"> 
+                            <v-card-text>{{ movie.overview }}</v-card-text>
+                            <v-btn color="info" target="_blank" :to="'/api/movies/'+ movie.id">Details</v-btn>                               
+                        </v-card>
+                    </div>
+                </div>
             </div>
         </v-container> 
         </v-row>
@@ -84,12 +118,48 @@ export default{
         return{
             hollywoodData: {},
             bollywoodData: {},
-            imageUrl: ''
+            searchResult: [],
+            imageUrl: '',
+            searchValue: '',
+            errorDialog: false,
+        }
+    },
+    computed: {
+        display: function () {
+            if (this.searchValue === '') {
+                this.searchResult = [];
+                return true;
+            }
+            return false;
         }
     },
     methods: {
         navigateHome() {
             this.$router.push({path: '/'});
+        },
+        searchMovie() {
+            if(this.searchValue === '')
+                return;
+            var url = 'https://api.themoviedb.org/3/search/movie?api_key=03906c3cc78de82cc99aadcdd24d6fa2&language=en-US&query=' + this.searchValue + '&page=1&include_adult=false'
+            var self = this;
+            $.ajax({
+                url: url,
+                dataType: "json", 
+                type: "GET",
+                success: function (data) {
+                    console.log(data)
+                    if(data.results.length === 0){
+                        self.searchValue = '';
+                        self.searchResult = [];
+                        self.errorDialog = true;
+                    }   
+                    else{
+                        self.searchResult = data.results;
+                    }
+                    
+                },
+            });
+            
         }
     },
     created() {

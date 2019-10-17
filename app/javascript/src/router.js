@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { store } from './store/store.js'
 Vue.use(VueRouter)
 
 import RootIndex from './rootindex.vue'
@@ -14,6 +13,7 @@ import Widgets from '../src/components/widgets.vue'
 import UserEdit from '../src/users/edit.vue';
 import UserNew from '../src/users/new.vue';
 import Logout from '../src/users/logout.vue';
+import MovieDetails from '../src/components/widgets/movies/details.vue'
 
 const router = new VueRouter({
     mode: 'history',
@@ -28,8 +28,8 @@ const router = new VueRouter({
         { path: '/api/currencyexc', component: Currencyexc, name: 'currencyexc_path' },
         { path: '/api/movies', component: Movies, name: 'movies_path' },
         { path: '/dashboard', component: Dashboard, name: 'dashboard_path' },
-        { path: '/widgets', component: Widgets, name: 'widgets_path' }
-        
+        { path: '/widgets', component: Widgets, name: 'widgets_path' },
+        { path: '/api/movies/:movie_id', component: MovieDetails, name: 'movie_path' }      
     ]
 });
 export default router;
