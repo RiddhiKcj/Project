@@ -33,26 +33,26 @@ export default {
     'signup' : Signup
   },
   data () {
-      return {
-        tab: null
-      }
+        return {
+            tab: null
+        }
     },
   created () {
-      this.$vuetify.theme.dark = true
+        this.$vuetify.theme.dark = true
     },
 }
 </script>
 <style scoped>
-  .basil {
-  background-color: #FFFBE6 !important;
-  }
-  .basil--text {
-  color: white !important;
-  }
-  .v-tab{
-    color: white !important;
-  }
-  .v-tab--active{
-    color: green !important;
-  }
+    .basil {
+        background-color: #FFFBE6 !important;
+    }
+    .basil--text {
+        color: white !important;
+    }
+    .v-tab{
+        color: white !important;
+    }
+    .v-tab--active{
+        color: green !important;
+    }
 </style>

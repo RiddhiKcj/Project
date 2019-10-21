@@ -12,7 +12,6 @@ import Dashboard from '../src/components/dashboard.vue'
 import Widgets from '../src/components/widgets.vue'
 import UserEdit from '../src/users/edit.vue';
 import UserNew from '../src/users/new.vue';
-import Logout from '../src/users/logout.vue';
 import MovieDetails from '../src/components/widgets/movies/details.vue'
 
 const router = new VueRouter({
@@ -22,7 +21,6 @@ const router = new VueRouter({
         { path: '/home', component: Index, name: 'home_path' },
         { path: '/createuser', component: UserNew, name: 'new_user_path' },
         { path: '/users/:id/edit', component: UserEdit, name: 'edit_user_path' },
-        { path: '/logout', component: Logout, name: 'logout_path' },
         { path: '/api/weather', component: Weather, name: 'weather_path' },
         { path: '/api/news', component: News, name: 'news_path' },
         { path: '/api/currencyexc', component: Currencyexc, name: 'currencyexc_path' },

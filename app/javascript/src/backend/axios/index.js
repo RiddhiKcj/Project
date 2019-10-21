@@ -20,34 +20,35 @@ const plainAxiosInstance = axios.create({
 })
 
 securedAxiosInstance.interceptors.request.use(config => {
-  const method = config.method.toUpperCase()
-  if (method !== 'OPTIONS' && method !== 'GET') {
-    config.headers = {
-      ...config.headers,
-      'X-CSRF-TOKEN': store.state.csrf,
-      'Authorization': 'Bearer ' +  store.state.access
+    const method = config.method.toUpperCase()
+    if (method !== 'OPTIONS' && method !== 'GET') {
+        config.headers = {
+            ...config.headers,
+            'X-CSRF-TOKEN': store.state.csrf,
+            'Authorization': 'Bearer ' +  store.state.access
+        }
     }
-  }
-  return config
+    return config
 })
 
 securedAxiosInstance.interceptors.response.use(null, error => {
-  if (error.response && error.response.config && error.response.status === 401) {
-    return plainAxiosInstance.post('/refresh', {}, { headers: { 'X-CSRF-TOKEN': localStorage.csrf } })
-      .then(response => {
-        store.commit('refresh', {csrf: response.data.csrf, access: response.data.access})
-        let retryConfig = error.response.config
-        retryConfig.headers['X-CSRF-TOKEN'] = store.state.csrf
-        retryConfig.headers['Authorization'] = 'Bearer ' + store.state.access
-        return plainAxiosInstance.request(retryConfig)
-      }).catch(error => {
-        store.commit('unsetSession')
-        location.replace('/')
+    if (error.response && error.response.config && error.response.status === 401) {
+        return plainAxiosInstance.post('/refresh', {}, { headers: { 'X-CSRF-TOKEN': localStorage.csrf } })
+            .then(response => {
+            store.commit('refresh', {csrf: response.data.csrf, access: response.data.access})
+            let retryConfig = error.response.config
+            retryConfig.headers['X-CSRF-TOKEN'] = store.state.csrf
+            retryConfig.headers['Authorization'] = 'Bearer ' + store.state.access
+            return plainAxiosInstance.request(retryConfig)
+            }).catch(error => {
+            store.commit('unsetSession')
+            location.replace('/')
+            return Promise.reject(error)
+        })
+    } 
+    else {
         return Promise.reject(error)
-      })
-  } else {
-    return Promise.reject(error)
-  }
+    }
 })
 
 export { securedAxiosInstance, plainAxiosInstance }
