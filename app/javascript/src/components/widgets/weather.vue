@@ -266,7 +266,7 @@
           return this.months[index]
         },
         navigateHome() {
-            this.$router.push({path: '/'});
+            this.$router.push({path: '/home'});
         },
         searchByCity(unixtime) {
             if(unixtime === undefined){
@@ -295,8 +295,8 @@
             var self = this;
             $.ajax({
             beforeSend: function(xhr) {
-                        xhr.setRequestHeader('X-CSRF-TOKEN', localStorage.csrf);
-                        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.access);
+                        xhr.setRequestHeader('X-CSRF-TOKEN', self.$store.state.csrf);
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + self.$store.state.access);
                     },
             url: '/api/widgets/weather',
             dataType: "json", 
@@ -360,13 +360,16 @@
         }
       },
       created() {
+        if(!this.$store.state.signedIn) {
+            this.$router.replace('/')
+        }
         this.$vuetify.theme.dark = false
         var self = this;
         $.ajax({
           beforeSend: function(xhr) {
-                    xhr.setRequestHeader('X-CSRF-TOKEN', localStorage.csrf);
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.access);
-                  },
+                xhr.setRequestHeader('X-CSRF-TOKEN', self.$store.state.csrf);
+                xhr.setRequestHeader('Authorization', 'Bearer ' + self.$store.state.access);
+            },
           url: '/api/widgets/weather',
           dataType: "json", 
           type: "GET",

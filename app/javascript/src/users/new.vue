@@ -6,32 +6,22 @@
         </v-toolbar>
         <div id="errors" v-if="error">{{error}}</div>
         <v-form  @submit.prevent="signup">
-          <v-text-field
-            v-model="username"
-            :counter="10"
-            label="Username"
-            required
-          ></v-text-field>
-          <v-text-field
-            v-model="email"
-            label="E-mail"
-            required
-          ></v-text-field>
-          <v-text-field
-            v-model="password"
+          <v-text-field v-model="username" :counter="10" label="Username" required></v-text-field>
+          <v-text-field v-model="email" label="E-mail" required></v-text-field>
+          <v-text-field v-model="password"
             :append-icon="show1 ? 'visibility' : 'visibility_off'"
             :rules="[rules.required, rules.min]"
             :type="show1 ? 'text' : 'password'"
             label="Password"
-            hint="At least 8 characters"
+            hint="At least 6 characters"
             counter
             @click:append="show1 = !show1">
           </v-text-field>
-          <v-text-field
-            v-model="password_confirmation"
-            label="Confirm Password"
-            required
-          ></v-text-field>
+          <v-text-field v-model="password_confirmation" 
+            :rules="[rules.required, rules.min, passwordConfirmationRule]"
+            type="password"
+            label="Confirm Password" required>
+          </v-text-field>
           <v-btn class="mr-4" type="submit">submit</v-btn>
         </v-form>
       </div>
@@ -45,7 +35,6 @@
     components: {
       'layout' : Layout
     },
-    name: 'Signup',
     data: function() {
       return ({
        show1: false,
@@ -55,7 +44,7 @@
         password_confirmation: '',
         rules: {
         required: value => !!value || 'Required.',
-          min: v => v.length >= 8 || 'Min 8 characters',
+          min: v => v.length >= 6 || 'Min 6 characters',
         },
        error: ''
     })
@@ -77,22 +66,25 @@
           this.signupFailed(response)
           return
         }
-        localStorage.csrf = response.data.csrf
-        localStorage.signedIn = true
+        this.$store.commit('setSession', { csrf: response.data.csrf, access: response.data.access })
         this.error = ''
         this.$router.replace('/home')
       },
       signupFailed (error) {
         this.error = (error.response && error.response.data && error.response.data.error) || 'Something went wrong'
-        delete localStorage.csrf
-        delete localStorage.signedIn
+        this.$store.commit('unsetSession')
       },
       checkSignedIn () {
-        if (localStorage.signedIn) {
+        if (this.$store.state.signedIn) {
           this.$router.replace('/home')
         }
       }
-    }
+    },
+    computed: {
+      passwordConfirmationRule() {
+        return () => (this.password === this.password_confirmation) || 'Password must match'
+    },
+}
   }
   </script>
   <style>

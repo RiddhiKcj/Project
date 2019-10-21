@@ -6,19 +6,8 @@
       </v-toolbar>
       <div id="errors" v-if="error">{{ error }}</div>
       <v-form method="post" @submit.prevent="signin">
-        <v-text-field
-          :counter="10"
-          label="Username"
-          required
-          v-model="username"
-        ></v-text-field>
-        <v-text-field
-          :type="'password'"
-          label="Password"
-          required
-          v-model="password"
-        ></v-text-field>
-
+        <v-text-field :counter="10" label="Username" required v-model="username"></v-text-field>
+        <v-text-field :type="'password'" label="Password" required v-model="password"></v-text-field>
         <div class="field">
           <v-btn class="mr-4" type="submit">Submit</v-btn>
         </div>
@@ -58,19 +47,16 @@ export default {
         this.signinFailed(response)
         return
       }
-      localStorage.csrf = response.data.csrf
-      localStorage.access = response.data.access
-      localStorage.signedIn = true
+      this.$store.commit('setSession', { csrf: response.data.csrf, access: response.data.access })
       this.error = ''
       this.$router.replace('/home')
     },
     signinFailed (error) {
       this.error = (error.response && error.response.data && error.response.data.error) || ''
-      delete localStorage.csrf
-      delete localStorage.signedIn
+      this.$store.commit('unsetSession')
     },
     checkSignedIn () {
-      if (localStorage.signedIn) {
+      if (this.$store.state.signedIn) {
         this.$router.replace('/home')
       }
     }

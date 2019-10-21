@@ -1,15 +1,33 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
+import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
         user: {},
         widgets: {},
-        selectedWidgets: {}     
+        selectedWidgets: {},
+        signedIn: false,
+        csrf: null,
+        access: null
     },
     mutations: {
+        setSession(state,{csrf,access}) {
+            state.signedIn = true
+            state.csrf = csrf
+            state.access = access
+        },
+        unsetSession(state) {
+            state.signedIn = false
+            state.csrf = null
+            state.access = null
+        },
+        refresh (state, {csrf,access}) {
+            state.signedIn = true
+            state.csrf = csrf
+            state.access = access
+        },
         initUser(state,data) {
             state.user = data;
             return state;
@@ -26,20 +44,20 @@ export const store = new Vuex.Store({
             state.user = {};
             state.widgets = {},
             state.selectedWidgets = {};
-        }
+        },
+        
     },
     actions: {
         index(context) {
         $.ajax({
             beforeSend: function(xhr) {
-                xhr.setRequestHeader('X-CSRF-TOKEN', localStorage.csrf);
-                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.access);
-              },
+                xhr.setRequestHeader('X-CSRF-TOKEN', context.state.csrf);
+                xhr.setRequestHeader('Authorization', 'Bearer ' + context.state.access);
+            },
             url: '/api/home',
             type: 'get',
             dataType: "json",
             success: function(data) {
-                console.log(data)
                 context.commit('initUser', data.user)
                 context.commit('initWidgets', data.widgets)
                 context.commit('initSelectedWidgets', data.selectedWidgets)
@@ -52,5 +70,6 @@ export const store = new Vuex.Store({
             }
         })
         }        
-    }
+    },
+    plugins: [createPersistedState()]
 });

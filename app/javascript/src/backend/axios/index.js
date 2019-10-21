@@ -1,21 +1,22 @@
 import axios from 'axios'
+import { store } from '../../store/store'
 
 const API_URL = 'http://localhost:3000'
 
 const securedAxiosInstance = axios.create({
-  baseURL: API_URL,
-  withCredentials: true,
-  headers: {
+    baseURL: API_URL,
+    withCredentials: true,
+    headers: {
     'Content-Type': 'application/json'
-  }
+    }
 })
 
 const plainAxiosInstance = axios.create({
-  baseURL: API_URL,
-  withCredentials: true,
-  headers: {
+    baseURL: API_URL,
+    withCredentials: true,
+    headers: {
     'Content-Type': 'application/json'
-  }
+    }
 })
 
 securedAxiosInstance.interceptors.request.use(config => {
@@ -23,29 +24,24 @@ securedAxiosInstance.interceptors.request.use(config => {
   if (method !== 'OPTIONS' && method !== 'GET') {
     config.headers = {
       ...config.headers,
-      'X-CSRF-TOKEN': localStorage.csrf,
-      Authorization: 'Bearer ' +  localStorage.access
+      'X-CSRF-TOKEN': store.state.csrf,
+      'Authorization': 'Bearer ' +  store.state.access
     }
   }
-  console.log(config);
   return config
 })
 
 securedAxiosInstance.interceptors.response.use(null, error => {
   if (error.response && error.response.config && error.response.status === 401) {
-    // In case 401 is caused by expired access cookie - we'll do refresh request
     return plainAxiosInstance.post('/refresh', {}, { headers: { 'X-CSRF-TOKEN': localStorage.csrf } })
       .then(response => {
-        localStorage.csrf = response.data.csrf
-        localStorage.signedIn = true
-        // And after successful refresh - repeat the original request
+        store.commit('refresh', {csrf: response.data.csrf, access: response.data.access})
         let retryConfig = error.response.config
-        retryConfig.headers['X-CSRF-TOKEN'] = localStorage.csrf
+        retryConfig.headers['X-CSRF-TOKEN'] = store.state.csrf
+        retryConfig.headers['Authorization'] = 'Bearer ' + store.state.access
         return plainAxiosInstance.request(retryConfig)
       }).catch(error => {
-        delete localStorage.csrf
-        delete localStorage.signedIn
-        // redirect to signin in case refresh request fails
+        store.commit('unsetSession')
         location.replace('/')
         return Promise.reject(error)
       })

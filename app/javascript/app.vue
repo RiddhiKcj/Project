@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <router-view></router-view>
   </v-app>
 </template>
@@ -18,7 +18,7 @@
       }
     },
     created () {
-      this.$vuetify.theme.dark = true
+      this.$vuetify.theme.light = true
     },
   }
 </script>

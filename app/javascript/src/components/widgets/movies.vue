@@ -3,63 +3,33 @@
         <v-row justify="center">
             <v-dialog v-model="errorDialog" max-width="500">
                 <v-card>  
-                <v-card-title>
-                    <p>Oops, No Movie Found!</p>
-                </v-card-title>
-                <v-card-actions>
-                <div class="flex-grow-1"></div>  
-                <v-btn color="green darken-1" text @click="errorDialog = false"> Close </v-btn>
-                </v-card-actions>
+                    <v-card-title>
+                        <p>Oops, No Movie Found!</p>
+                    </v-card-title>
+                    <v-card-actions>
+                        <div class="flex-grow-1"></div>  
+                        <v-btn color="green darken-1" text @click="errorDialog = false"> Close </v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-dialog>
-        <v-container>
-            <v-toolbar dark>
-                <v-toolbar-title><v-icon>mdi-movie</v-icon>&nbsp;<b>Movies</b></v-toolbar-title>
-                <div class="flex-grow-1"></div>
-                <v-btn icon @click=navigateHome>
-                    <v-icon>mdi-home</v-icon>
-                </v-btn>
-            </v-toolbar>
-            <v-tabs color="white" dense>
-                    <v-text-field full-width solo flat single-line dense placeholder="search for a movie" prepend-icon="mdi-magnify" class="pl-12" v-model="searchValue" @keyup.enter="searchMovie">
-                    </v-text-field>
-            </v-tabs>
-            <div class="content" v-if="display">
-                <v-card-text>
-                    <v-sheet class="mx-auto">
-                    <h5> Popular in Hollywood </h5>
-                    <v-slide-group multiple show-arrows>
-                        <v-slide-item v-for="movie in hollywoodData.results" v-slot:default="{ active, toggle }">
-                            <div class="flip-card">
-                                <div class="flip-card-front">
-                                    <v-card color="white">                                       
-                                        <v-img :src="imageUrl + movie.poster_path" alt="..." max-height="355"></v-img>
-                                        <v-card-title>
-                                            {{ movie.title }}
-                                        </v-card-title>
-                                        <v-card-text>
-                                            <v-icon color="red">mdi-heart</v-icon>
-                                            {{ movie.vote_average * 10 }}%
-                                        </v-card-text>
-                                    </v-card>
-                                </div>
-                                <div class="flip-card-back">
-                                    <v-card color="white"> 
-                                        <v-card-text>{{ movie.overview }}</v-card-text>
-                                        <v-btn color="info" target="_blank" :to="'/api/movies/'+ movie.id">Details</v-btn>                                  
-                                    </v-card>
-                                </div>
-                            </div>
-                        </v-slide-item>
-                    </v-slide-group>
-                    </v-sheet>
-                    <br />
-                    <br />
-                    <br />
-                    <v-sheet class="mx-auto">
-                        <h5> Popular in Bollywood </h5>
+            <v-container>
+                <v-toolbar dark>
+                    <v-toolbar-title><v-icon>mdi-movie</v-icon>&nbsp;<b>Movies</b></v-toolbar-title>
+                    <div class="flex-grow-1"></div>
+                    <v-btn icon @click=navigateHome>
+                        <v-icon>mdi-home</v-icon>
+                    </v-btn>
+                </v-toolbar>
+                <v-tabs color="white" dense>
+                        <v-text-field full-width solo flat single-line dense placeholder="search for a movie" prepend-icon="mdi-magnify" class="pl-12" v-model="searchValue" @keyup.enter="searchMovie">
+                        </v-text-field>
+                </v-tabs>
+                <div class="content" v-if="display">
+                    <v-card-text>
+                        <v-sheet class="mx-auto">
+                        <h5> Popular in Hollywood </h5>
                         <v-slide-group multiple show-arrows>
-                            <v-slide-item v-for="movie in bollywoodData.results" v-slot:default="{ active, toggle }">
+                            <v-slide-item v-for="movie in hollywoodData.results" v-slot:default="{ active, toggle }">
                                 <div class="flip-card">
                                     <div class="flip-card-front">
                                         <v-card color="white">                                       
@@ -76,39 +46,69 @@
                                     <div class="flip-card-back">
                                         <v-card color="white"> 
                                             <v-card-text>{{ movie.overview }}</v-card-text>
-                                            <!-- <v-btn color="info" target="_blank" :href="'https://www.themoviedb.org/movie/'+ movie.id">Details</v-btn>                                   -->
-                                            <v-btn color="info" target="_blank" :to="'/api/movies/'+ movie.id">Details</v-btn>                               
+                                            <v-btn color="info" target="_blank" :to="'/api/movies/'+ movie.id">Details</v-btn>                                  
                                         </v-card>
                                     </div>
                                 </div>
                             </v-slide-item>
                         </v-slide-group>
-                    </v-sheet>
-                </v-card-text>
-            </div>
-            <div class="content" v-if="!display">
-                <div v-for="movie in searchResult" class="flip-card">
-                    <div class="flip-card-front">
-                        <v-card color="white">                                       
-                            <v-img :src="imageUrl + movie.poster_path" alt="..." max-height="355"></v-img>
-                            <v-card-title>
-                                {{ movie.title }}
-                            </v-card-title>
-                            <v-card-text>
-                                <v-icon color="red">mdi-heart</v-icon>
-                                {{ movie.vote_average * 10 }}%
-                            </v-card-text>
-                        </v-card>
-                    </div>
-                    <div class="flip-card-back">
-                        <v-card color="white"> 
-                            <v-card-text>{{ movie.overview }}</v-card-text>
-                            <v-btn color="info" target="_blank" :to="'/api/movies/'+ movie.id">Details</v-btn>                               
-                        </v-card>
+                        </v-sheet>
+                        <br />
+                        <br />
+                        <br />
+                        <v-sheet class="mx-auto">
+                            <h5> Popular in Bollywood </h5>
+                            <v-slide-group multiple show-arrows>
+                                <v-slide-item v-for="movie in bollywoodData.results" v-slot:default="{ active, toggle }">
+                                    <div class="flip-card">
+                                        <div class="flip-card-front">
+                                            <v-card color="white">                                       
+                                                <v-img :src="imageUrl + movie.poster_path" alt="..." max-height="355"></v-img>
+                                                <v-card-title>
+                                                    {{ movie.title }}
+                                                </v-card-title>
+                                                <v-card-text>
+                                                    <v-icon color="red">mdi-heart</v-icon>
+                                                    {{ movie.vote_average * 10 }}%
+                                                </v-card-text>
+                                            </v-card>
+                                        </div>
+                                        <div class="flip-card-back">
+                                            <v-card color="white"> 
+                                                <v-card-text>{{ movie.overview }}</v-card-text>
+                                                <!-- <v-btn color="info" target="_blank" :href="'https://www.themoviedb.org/movie/'+ movie.id">Details</v-btn>                                   -->
+                                                <v-btn color="info" target="_blank" :to="'/api/movies/'+ movie.id">Details</v-btn>                               
+                                            </v-card>
+                                        </div>
+                                    </div>
+                                </v-slide-item>
+                            </v-slide-group>
+                        </v-sheet>
+                    </v-card-text>
+                </div>
+                <div class="content" v-if="!display">
+                    <div v-for="movie in searchResult" class="flip-card">
+                        <div class="flip-card-front">
+                            <v-card color="white">                                       
+                                <v-img :src="imageUrl + movie.poster_path" alt="..." max-height="355"></v-img>
+                                <v-card-title>
+                                    {{ movie.title }}
+                                </v-card-title>
+                                <v-card-text>
+                                    <v-icon color="red">mdi-heart</v-icon>
+                                    {{ movie.vote_average * 10 }}%
+                                </v-card-text>
+                            </v-card>
+                        </div>
+                        <div class="flip-card-back">
+                            <v-card color="white"> 
+                                <v-card-text>{{ movie.overview }}</v-card-text>
+                                <v-btn color="info" target="_blank" :to="'/api/movies/'+ movie.id">Details</v-btn>                               
+                            </v-card>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </v-container> 
+            </v-container> 
         </v-row>
     </v-container>
 </template>
@@ -135,7 +135,7 @@ export default{
     },
     methods: {
         navigateHome() {
-            this.$router.push({path: '/'});
+            this.$router.push({path: '/home'});
         },
         searchMovie() {
             if(this.searchValue === '')
@@ -147,7 +147,6 @@ export default{
                 dataType: "json", 
                 type: "GET",
                 success: function (data) {
-                    console.log(data)
                     if(data.results.length === 0){
                         self.searchValue = '';
                         self.searchResult = [];
@@ -163,27 +162,26 @@ export default{
         }
     },
     created() {
+        if (!this.$store.state.signedIn) {
+            this.$router.replace('/')
+        }
         this.$vuetify.theme.dark = false;
         var self = this;
         $.ajax({
             beforeSend: function(xhr) {
-                xhr.setRequestHeader('X-CSRF-TOKEN', localStorage.csrf);
-                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.access);
+                xhr.setRequestHeader('X-CSRF-TOKEN', self.$store.state.csrf);
+                xhr.setRequestHeader('Authorization', 'Bearer ' + self.$store.state.access);
                 },
             url: '/api/widgets/movies',
             dataType: "json", 
             type: "GET",
             success: function (data) {
-                console.log(data)
-                console.log(data.hollywoodData.results)
                 self.hollywoodData = data.hollywoodData;
                 self.bollywoodData = data.bollywoodData;
                 self.imageUrl = data.imageurl;  
             },
             error: function(xhr, textstatus) {
-                delete localStorage.csrf
-                delete localStorage.access
-                delete localStorage.signedIn
+                self.$store.commit('unsetSession')
                 window.href.location = "/" 
             }
         });
