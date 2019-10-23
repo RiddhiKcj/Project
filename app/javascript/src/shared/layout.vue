@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-navigation-drawer v-model="drawer" app floating persistent mobile-break-point="991" width="260">
+        <v-navigation-drawer v-model="drawer" hide-overlay bottom app floating persistent mobile-break-point="991" width="260">
             <v-layout class="fill-height" tag="v-list" column>
                 <v-list-item>
                     <v-list-item-content> 

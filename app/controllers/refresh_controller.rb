@@ -10,12 +10,11 @@ class RefreshController < ApplicationController
                             value: tokens[:access],
                             httponly: true,
                             secure: Rails.env.production?)
-
-        # render json: { csrf: tokens[:csrf] }
         render json: session.refresh(found_token)
     end
 
     def access_payload
         build_access_payload_based_on_refresh(payload)
     end
+
   end

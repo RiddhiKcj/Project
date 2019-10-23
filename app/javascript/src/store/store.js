@@ -66,6 +66,8 @@ export const store = new Vuex.Store({
                 delete localStorage.csrf
                 delete localStorage.access
                 delete localStorage.signedIn
+                context.commit('unsetSession')
+                context.commit('emptyStore')
                 window.href.location = "/" 
             }
         })

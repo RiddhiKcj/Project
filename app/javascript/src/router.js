@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { store } from './store/store'
 Vue.use(VueRouter)
 
 import RootIndex from './rootindex.vue'
@@ -27,7 +28,23 @@ const router = new VueRouter({
         { path: '/api/movies', component: Movies, name: 'movies_path' },
         { path: '/dashboard', component: Dashboard, name: 'dashboard_path' },
         { path: '/widgets', component: Widgets, name: 'widgets_path' },
-        { path: '/api/movies/:movie_id', component: MovieDetails, name: 'movie_path' }      
+        { path: '/api/movies/:movie_id', component: MovieDetails, name: 'movie_path' },
+        { path: '*' , redirect: '/home'}      
     ]
 });
+router.beforeEach((to, from, next) => {
+    if ( to.fullPath !== '/' ) {
+        if ( !store.state.signedIn ){
+            next('/')
+        }
+        else {
+            next();
+        }       
+    }
+    else {
+        next();
+    }
+  })
+
+
 export default router;

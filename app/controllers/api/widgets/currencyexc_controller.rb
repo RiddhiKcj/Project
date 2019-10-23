@@ -1,13 +1,7 @@
-class Api::Widgets::CurrencyexcController < ApplicationController
+class Api::Widgets::CurrencyexcController < Api::WidgetsController
   before_action :authorize_access_request! 
   def index
-      currencyexcApi = Widget.find_by name: 'currencyexc'
-      key = currencyexcApi.apikey
-      # FORMAT url = '...apiKey='#{key}
-      url = currencyexcApi.url + key
-      responseData = (RestClient.get(url))
-      puts responseData
-      @currencyexcData = JSON.parse(responseData)
+      @currencyexcData = call_api('currencyexc')
       data = {
         :currencyexcData => @currencyexcData,
       }
