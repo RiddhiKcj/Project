@@ -9,3 +9,4 @@ User.create!(username: "riddhi", email: "ridds509@gmail.com", password: "111111"
 Widget.create!(name: "weather", url: "https://api.darksky.net/forecast/", apikey: "adedecd668be4b048d9408469258ab9a", active: true)
 Widget.create!(name: "news", url: "https://newsapi.org/v2/top-headlines?sources=the-hindu&apiKey=", apikey: "352350466a754313b9f8be2e8b9fd41d", active: true)
 Widget.create!(name: "currencyexc", url: "http://www.apilayer.net/api/live?access_key=", apikey: "a239bfb10e94ca269f81b28990c0a585", active: true)
+Widget.create!(name: "movies", url: "https://api.themoviedb.org/3/movie/popular?api_key=", apikey: "7276f44b4cf7dcc3c24735d5493b986d", active: true)
